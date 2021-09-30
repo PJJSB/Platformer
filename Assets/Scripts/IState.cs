@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class IState : MonoBehaviour
+public interface IState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //State Entry Logic
+    void EnterState(PlayerStateManager player);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //State Logic
+    void DoState(PlayerStateManager player);
+
+    //State Switching Logic
+    void ExitState(PlayerStateManager player);
 }
