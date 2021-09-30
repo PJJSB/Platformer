@@ -3,7 +3,7 @@ using UnityEngine;
 public class GroundedState : IState
 {
     //The speed of walking
-    private float _WalkSpeed = 10f; 
+    private float _walkSpeed = 10f; 
 
     public void EnterState(PlayerStateManager player)
     {
@@ -18,7 +18,12 @@ public class GroundedState : IState
         movement.z = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
         //Move the object
-        //use that playercontroller that doesnt exist yet
+        player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
+        //Gravity or something for being grounded
+        if (!player.playerCharacter.isGrounded)
+        {
+            player.playerCharacter.Move(new Vector3(0,-1,0));
+        }
     }
 
     public void ExitState(PlayerStateManager player)
@@ -26,9 +31,8 @@ public class GroundedState : IState
         //Jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //player.SwitchToState(player.jumpState);
+            player.SwitchToState(player.jumpState);
             return;
         }
-        return;
     }
 }
