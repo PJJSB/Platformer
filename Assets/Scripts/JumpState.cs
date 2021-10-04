@@ -7,7 +7,7 @@ public class JumpState : IState
     //The gravity factor
     private float _gravityStrength = 9.82f;
     //Jumpheight
-    private float _jumpHeight = 1.0f;
+    private float _jumpHeight = 5.0f;
     //Vertical movement component
     private Vector3 verticalVelocity = new Vector3(0, 0, 0);
 
