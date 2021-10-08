@@ -31229,7 +31229,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1203775958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b9ce4c72225ce4a9cb45507572d5f2, type: 3}
+  m_Script: {fileID: 11500000, guid: bb2fe1caef3413b49bca1b600f0be9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leaderObject: {fileID: 2576581992422044553}
@@ -34551,7 +34551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2576581992422044553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94a476f14147a9346ad961d8548a98d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0927fa4705b2b9040934472105ebf59f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 2576581992422044554}
@@ -34568,7 +34568,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 0230346dd71a578489bc5af3548d6ffc, type: 3}
+  m_Mesh: {fileID: 6185819499857155065, guid: 0fa637b8719c4444795b9a605c442984, type: 3}
 --- !u!23 &4937459943090748780
 MeshRenderer:
   m_ObjectHideFlags: 0
