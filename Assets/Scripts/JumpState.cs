@@ -7,7 +7,7 @@ public class JumpState : IState
     //The gravity factor
     private float _gravityStrength = 9.82f;
     //Jumpheight
-    private float _jumpHeight = 5.0f;
+    private float _jumpHeight = 2.5f;
     //Vertical movement component
     private Vector3 verticalVelocity = new Vector3(0, 0, 0);
 
@@ -22,7 +22,7 @@ public class JumpState : IState
         //Translate the input into the movement vector
         Vector3 movement = new Vector3(0, 0, 0);
         movement.x = Input.GetAxisRaw("Horizontal");
-        movement.z = Input.GetAxisRaw("Vertical");
+        movement.z = Input.GetAxis("Vertical");
         movement = movement.normalized;
         //Move the object
         player.playerCharacter.Move(movement * _airSpeed * Time.deltaTime);

@@ -14,8 +14,8 @@ public class GroundedState : IState
     {
         //Translate the input into the movement vector
         Vector3 movement = new Vector3(0, 0, 0);
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.z = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxis("Horizontal");
+        movement.z = Input.GetAxis("Vertical");
         movement = movement.normalized;
         //Move the object
         player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
