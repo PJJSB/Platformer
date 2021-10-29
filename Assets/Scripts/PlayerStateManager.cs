@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
+    public Vector3 jumpMomentum;
     //Coupling to the player controller
     public CharacterController playerCharacter;
     //Active player state
