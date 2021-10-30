@@ -5,6 +5,8 @@ public class GroundedState : IState
     Vector3 movement;
     
     public float _walkSpeed = 10f; 
+    public float _runSpeed = 16f;
+    public bool isRunning = false;
 
     public void EnterState(PlayerStateManager player)
     {
@@ -19,8 +21,26 @@ public class GroundedState : IState
         movement.x = Input.GetAxis("Horizontal");
         movement.z = Input.GetAxis("Vertical");
         movement = movement.normalized;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isRunning = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isRunning = false;
+        }
+
         //Move the object
-        player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
+        if (isRunning)
+        {
+            player.playerCharacter.Move(movement * _runSpeed * Time.deltaTime);
+        } else
+        {
+            player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
+        }
+        
         //Gravity or something for being grounded
         if (!player.playerCharacter.isGrounded)
         {
@@ -33,8 +53,8 @@ public class GroundedState : IState
         //Jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isRunning = false;
             player.jumpMomentum = movement;
-            Debug.Log(movement);
             player.SwitchToState(player.jumpState);
             return;
         }
