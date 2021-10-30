@@ -6,6 +6,8 @@ public class PlayerStateManager : MonoBehaviour
 {
     //Coupling to the player controller
     public CharacterController playerCharacter;
+    // Main Camera transform object
+    public Transform camera;
     //Active player state
     private IState _playerState;
     //Allowed and instantiated player states

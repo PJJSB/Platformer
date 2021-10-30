@@ -24,6 +24,9 @@ public class JumpState : IState
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
+        // Rotate movement in direction of camera
+        movement = Matrix4x4.Rotate(player.camera.rotation) * movement;
+        movement.y = 0f;
         //Move the object
         player.playerCharacter.Move(movement * _airSpeed * Time.deltaTime);
         //Gravity or something
