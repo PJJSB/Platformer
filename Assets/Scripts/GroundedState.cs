@@ -2,23 +2,45 @@ using UnityEngine;
 
 public class GroundedState : IState
 {
-    //The speed of walking
-    private float _walkSpeed = 10f; 
+    Vector3 movement;
+    
+    public float _walkSpeed = 10f; 
+    public float _runSpeed = 16f;
+    public bool isRunning = false;
 
     public void EnterState(PlayerStateManager player)
     {
+        player.jumpMomentum = new Vector3(0, 0, 0);
         return;
     }
 
     public void DoState(PlayerStateManager player)
     {
         //Translate the input into the movement vector
-        Vector3 movement = new Vector3(0, 0, 0);
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.z = Input.GetAxisRaw("Vertical");
+        movement = new Vector3(0, 0, 0);
+        movement.x = Input.GetAxis("Horizontal");
+        movement.z = Input.GetAxis("Vertical");
         movement = movement.normalized;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isRunning = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isRunning = false;
+        }
+
         //Move the object
-        player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
+        if (isRunning)
+        {
+            player.playerCharacter.Move(movement * _runSpeed * Time.deltaTime);
+        } else
+        {
+            player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
+        }
+        
         //Gravity or something for being grounded
         if (!player.playerCharacter.isGrounded)
         {
@@ -31,6 +53,8 @@ public class GroundedState : IState
         //Jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isRunning = false;
+            player.jumpMomentum = movement;
             player.SwitchToState(player.jumpState);
             return;
         }
