@@ -21,6 +21,8 @@ public class GroundedState : IState
         movement.x = Input.GetAxis("Horizontal");
         movement.z = Input.GetAxis("Vertical");
         movement = movement.normalized;
+        movement = Matrix4x4.Rotate(player.camera.rotation) * movement;
+        movement.y = 0;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -35,11 +37,19 @@ public class GroundedState : IState
         //Move the object
         if (isRunning)
         {
-            player.playerCharacter.Move(movement * _runSpeed * Time.deltaTime);
+            movement *= _runSpeed;
         } else
         {
-            player.playerCharacter.Move(movement * _walkSpeed * Time.deltaTime);
+            movement *= _walkSpeed;
         }
+
+        if (Input.GetAxis("Vertical") != 0)
+        {
+            player.transform.eulerAngles = new Vector3(0, player.camera.eulerAngles.y, 0);
+        }
+        
+        // Move character
+        player.playerCharacter.Move(movement * Time.deltaTime);
         
         //Gravity or something for being grounded
         if (!player.playerCharacter.isGrounded)

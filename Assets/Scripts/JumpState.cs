@@ -28,6 +28,8 @@ public class JumpState : IState
         movement.x = Input.GetAxis("Horizontal");
         movement.z = Input.GetAxis("Vertical");
         movement = movement.normalized;
+        movement = Matrix4x4.Rotate(player.camera.rotation) * movement;
+        movement.y = 0;
 
         //Move the object
         player.playerCharacter.Move(movement * _airSpeed * Time.deltaTime);
