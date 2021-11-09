@@ -20,6 +20,11 @@ public class GroundedState : IState
             x = Input.GetAxisRaw("Horizontal"),
             z = Input.GetAxisRaw("Vertical")
         };
+        //Make speed of character constant in every direction
+        if (_movement.magnitude != 1)
+        {
+            _movement /= Mathf.Sqrt(2);
+        }
         _movement *= _walkSpeed;
             
         //Run faster if shift is pressed
