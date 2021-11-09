@@ -2,54 +2,44 @@ using UnityEngine;
 
 public class GroundedState : IState
 {
-    Vector3 movement;
-    
-    public float _walkSpeed = 10f; 
-    public float _runSpeed = 16f;
-    public bool isRunning = false;
+    private Vector3 _movement;
+
+    private float _walkSpeed = 10f;
+    private float _runSpeed = 16f;
 
     public void EnterState(PlayerStateManager player)
     {
-        player.jumpMomentum = new Vector3(0, 0, 0);
-        return;
+        
     }
 
     public void DoState(PlayerStateManager player)
     {
-        //Translate the input into the movement vector
-        movement = new Vector3(0, 0, 0);
-        movement.x = Input.GetAxis("Horizontal");
-        movement.z = Input.GetAxis("Vertical");
-        movement = movement.normalized;
-        movement = Matrix4x4.Rotate(player.camera.rotation) * movement;
-        movement.y = 0;
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        //Movement vector
+        _movement = new Vector3
         {
-            isRunning = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+            x = Input.GetAxisRaw("Horizontal"),
+            z = Input.GetAxisRaw("Vertical")
+        };
+        _movement *= _walkSpeed;
+            
+        //Run faster if shift is pressed
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            isRunning = false;
-        }
-
-        //Move the object
-        if (isRunning)
-        {
-            movement *= _runSpeed;
-        } else
-        {
-            movement *= _walkSpeed;
-        }
-
-        if (Input.GetAxis("Vertical") != 0)
-        {
-            player.transform.eulerAngles = new Vector3(0, player.camera.eulerAngles.y, 0);
+            _movement *= _runSpeed / _walkSpeed;
         }
         
-        // Move character
-        player.playerCharacter.Move(movement * Time.deltaTime);
+        //Rotate player when moving forward
+        if (Input.GetAxis("Vertical") != 0)
+        {
+            player.transform.eulerAngles = new Vector3(0, player.mainCamera.eulerAngles.y, 0);
+        }
+        
+        // Rotate movement to same direction as camera
+        _movement = Matrix4x4.Rotate(Quaternion.Euler(0, player.mainCamera.eulerAngles.y, 0)) * _movement;
+        _movement.y = 0;
+        
+        //Move character
+        player.playerCharacter.Move(_movement * Time.deltaTime);
         
         //Gravity or something for being grounded
         if (!player.playerCharacter.isGrounded)
@@ -63,10 +53,8 @@ public class GroundedState : IState
         //Jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isRunning = false;
-            player.jumpMomentum = movement;
+            player.jumpMomentum = _movement;
             player.SwitchToState(player.jumpState);
-            return;
         }
     }
 }

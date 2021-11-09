@@ -13,7 +13,7 @@ public class PlayerStateManager : MonoBehaviour
     public IState groundState = new GroundedState();
     public IState jumpState = new JumpState();
     // Camera transform component
-    public Transform camera;
+    public Transform mainCamera;
 
     // Start is called before the first frame update
     void Start()
