@@ -25,6 +25,8 @@ public class PlayerStateManager : MonoBehaviour
     {
         //Set the initial state
         SwitchToState(groundState);
+        //Hide cursor
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

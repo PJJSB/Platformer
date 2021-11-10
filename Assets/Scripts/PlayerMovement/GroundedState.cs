@@ -49,7 +49,7 @@ public class GroundedState : IState
         //Gravity or something for being grounded
         if (!player.playerCharacter.isGrounded)
         {
-            player.playerCharacter.Move(new Vector3(0,-1,0));
+            player.playerCharacter.Move(new Vector3(0,-0.05f,0));
         }
     }
 
