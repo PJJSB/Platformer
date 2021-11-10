@@ -5,29 +5,28 @@ using UnityEngine;
 public class DeathZoneScript : MonoBehaviour
 {
     public GameObject respawnAnchor;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public GameObject respawnAnchorReturn;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Character")
         {
             var controller = other.GetComponent<CharacterController>();
-            
-            //'respawn' player at respawnAnchor location
+            var player = other.GetComponent<PlayerStateManager>();
+
             // the jank is real
             controller.enabled = false;
-            other.transform.position = respawnAnchor.transform.position;
+
+            // Which side of the room the player will respawn at is based on how the player is traversing the level (front -> back or back -> front) at that point
+            if (!player.isReverseSection)
+            {
+                other.transform.position = respawnAnchor.transform.position;
+            }
+            else
+            {
+                other.transform.position = respawnAnchorReturn.transform.position;
+            }
+            
             controller.enabled = true;
         }
     }
