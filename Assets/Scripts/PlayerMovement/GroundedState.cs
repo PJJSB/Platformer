@@ -56,7 +56,7 @@ public class GroundedState : IState
     public void ExitState(PlayerStateManager player)
     {
         //Jump
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && player.playerCharacter.isGrounded)
         {
             player.jumpMomentum = _movement;
             player.SwitchToState(player.jumpState);
