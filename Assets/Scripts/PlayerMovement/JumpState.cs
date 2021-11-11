@@ -25,6 +25,11 @@ public class JumpState : IState
         {
             x = _airSpeed * Input.GetAxisRaw("Horizontal")
         };
+
+        if (Input.GetAxisRaw("Vertical") < 0)
+        {
+            movement.z = _airSpeed * Input.GetAxisRaw("Vertical");
+        }
         
         movement = Matrix4x4.Rotate(Quaternion.Euler(0, player.mainCamera.eulerAngles.y, 0)) * movement;
         movement.y = 0;
