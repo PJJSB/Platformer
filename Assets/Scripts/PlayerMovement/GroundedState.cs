@@ -6,6 +6,8 @@ public class GroundedState : IState
 
     private float _walkSpeed = 10f;
     private float _runSpeed = 16f;
+    private static readonly int IsWalkingAnimator = Animator.StringToHash("isWalking");
+    private static readonly int IsRunningAnimator = Animator.StringToHash("isRunning");
 
     public void EnterState(PlayerStateManager player)
     {
@@ -27,10 +29,24 @@ public class GroundedState : IState
         }
         _movement *= _walkSpeed;
             
-        //Run faster if shift is pressed
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (_movement.magnitude >= 0.1f)
         {
-            _movement *= _runSpeed / _walkSpeed;
+            //Run faster if shift is pressed
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                player.animator.SetBool(IsRunningAnimator, true);
+                _movement *= _runSpeed / _walkSpeed;
+            }
+            else
+            {
+                player.animator.SetBool(IsRunningAnimator, false);
+                player.animator.SetBool(IsWalkingAnimator, true);
+            }
+        }
+        else
+        {
+            player.animator.SetBool(IsWalkingAnimator, false);
+            player.animator.SetBool(IsRunningAnimator, false);
         }
         
         //Rotate player when moving forward
