@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
+    public Animator animator;
+    
     [HideInInspector]
     public Vector3 jumpMomentum;
 
@@ -23,6 +25,7 @@ public class PlayerStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         //Set the initial state
         SwitchToState(groundState);
         //Hide cursor
