@@ -11,7 +11,7 @@ public class GroundedState : IState
 
     public void EnterState(PlayerStateManager player)
     {
-        AudioManager.GetInstance().PlayImpact();
+        AudioManager.GetInstance().Play(AudioManager.SoundType.impact);
     }
 
     public void DoState(PlayerStateManager player)

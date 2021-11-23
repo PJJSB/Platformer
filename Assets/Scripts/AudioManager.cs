@@ -6,9 +6,16 @@ public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
     private float volume = 0.2f;
-
     private AudioSource playerAudioSource;
     public GameObject player;
+
+    public enum SoundType
+    {
+        footstep,
+        impact,
+        death
+    }
+
     public List<AudioClip> footsteps;
     public AudioClip fallImpact;
     public AudioClip deathSound;
@@ -31,20 +38,26 @@ public class AudioManager : MonoBehaviour
         return instance;
     }
 
-    public void PlayFootstep()
+    public void Play(SoundType soundType)
     {
-        //set random footstep
-        int i = Random.Range(0, 4);
-        playerAudioSource.PlayOneShot(footsteps[i], volume);
-    }
+        switch (soundType)
+        {
+            case SoundType.footstep:
+                //set random footstep
+                int i = Random.Range(0, 4);
+                playerAudioSource.PlayOneShot(footsteps[i], volume);
+                break;
 
-    public void PlayImpact()
-    {
-        playerAudioSource.PlayOneShot(fallImpact, volume);
-    }
+            case SoundType.impact:
+                playerAudioSource.PlayOneShot(fallImpact, volume);
+                break;
 
-    public void PlayDeath()
-    {
-        playerAudioSource.PlayOneShot(deathSound, volume);
+            case SoundType.death:
+                playerAudioSource.PlayOneShot(deathSound, volume);
+                break;
+
+            default:
+                break;
+        }
     }
 }

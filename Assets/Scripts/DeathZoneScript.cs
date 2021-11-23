@@ -14,7 +14,7 @@ public class DeathZoneScript : MonoBehaviour
             var controller = other.GetComponent<CharacterController>();
             var player = other.GetComponent<PlayerStateManager>();
 
-            AudioManager.GetInstance().PlayDeath();
+            AudioManager.GetInstance().Play(AudioManager.SoundType.death);
 
             // the jank is real
             controller.enabled = false;
