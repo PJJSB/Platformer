@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 public class DeathZoneScript : MonoBehaviour
@@ -11,16 +10,16 @@ public class DeathZoneScript : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            var controller = other.GetComponent<CharacterController>();
-            var player = other.GetComponent<PlayerStateManager>();
+            CharacterController controller = other.GetComponent<CharacterController>();
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
 
             AudioManager.GetInstance().Play(AudioManager.SoundType.death);
 
-            // the jank is real
+            // The jank is real, controller needs to be disabled to be able to pass through objects to a respawn anchor
             controller.enabled = false;
 
             // Which side of the room the player will respawn at is based on how the player is traversing the level (front -> back or back -> front) at that point
-            if (!player.isReverseSection)
+            if (!player.isReversing)
             {
                 other.transform.position = respawnAnchor.transform.position;
             }
