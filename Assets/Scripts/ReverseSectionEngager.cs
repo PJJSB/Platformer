@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 public class ReverseSectionEngager : MonoBehaviour
@@ -8,8 +7,8 @@ public class ReverseSectionEngager : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            var player = other.GetComponent<PlayerStateManager>();
-            player.isReverseSection = true;
+            Player player = other.GetComponent<Player>();
+            player.isReversing = true;
         }
     }
 }
