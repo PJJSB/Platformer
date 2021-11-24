@@ -32,6 +32,9 @@ namespace Assets.Scripts.Player.States
             // If player lands on floor (check is at the end to prevent getting stuck in code between pre-jump states and this state)
             if (player.controller.isGrounded)
             {
+                // Play impact sound
+                AudioManager.GetInstance().Play(AudioManager.SoundType.impact);
+
                 player.acceleration.x = 0;
                 player.acceleration.z = 0;
                 // If the player was moving while landing
