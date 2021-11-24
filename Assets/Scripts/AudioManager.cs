@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// If you need the audiomanager, use AudioManager.GetInstance()
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
@@ -20,13 +20,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip fallImpact;
     public AudioClip deathSound;
 
-    //class cannot be instantiated because we only want ONE manager
-    //if you need the audiomanager, use AudioManager.GetInstance()
-    private AudioManager()
-    {
-
-    }
-
     void Start()
     {
         instance = this;
@@ -43,8 +36,8 @@ public class AudioManager : MonoBehaviour
         switch (soundType)
         {
             case SoundType.footstep:
-                //set random footstep
-                int i = Random.Range(0, 4);
+                // Play random footstep
+                int i = Random.Range(0, footsteps.Count);
                 playerAudioSource.PlayOneShot(footsteps[i], volume);
                 break;
 
