@@ -41,12 +41,6 @@ namespace Assets.Scripts.Player.States
             Vector3 movement = player.AlignMovementWithCamera(player.movementInput * walkingSpeed);
             player.speed.x = movement.x;
             player.speed.z = movement.z;
-
-            // If player touches floor, gravity gets reset
-            if (player.controller.isGrounded)
-            {
-                player.speed.y = 0;
-            }
         }
     }
 }

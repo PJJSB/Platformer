@@ -18,6 +18,9 @@ namespace Assets.Scripts.Player
         // Deadzone for controllers to avoid analog drift. Everything equal to or below deadzone gets ignored.
         public float deadzone = 0.2f;
 
+        // How many unity units the player should move downward to stay attached on the floor during floor movement
+        public float floorGlue = -5f;
+
         public float gravityStrength = 40f;
         public Vector3 speed;
         public Vector3 acceleration;
@@ -47,6 +50,12 @@ namespace Assets.Scripts.Player
             if (movementInput.magnitude > deadzone)
             {
                 AlignPlayerRotationWithCamera();
+            }
+
+            // If player touches floor, gravity gets reset
+            if (controller.isGrounded)
+            {
+                speed.y = floorGlue;
             }
 
             // Handle state specific behavior

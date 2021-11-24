@@ -27,12 +27,6 @@ namespace Assets.Scripts.Player.States
                 }
             }
 
-            // If player touches floor, gravity gets reset
-            if (player.controller.isGrounded)
-            {
-                player.speed.y = 0;
-            }
-
             // If jumping
             if (Input.GetKeyDown(KeyCode.Space) && player.controller.isGrounded)
             {
