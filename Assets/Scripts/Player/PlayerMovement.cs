@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Player
 {
-    public class Player : PlayerStateMachine
+    public class PlayerMovement : PlayerStateMachine
     {
         // Reference to these objects are set in the editor (drag & drop)
         public CharacterController controller;

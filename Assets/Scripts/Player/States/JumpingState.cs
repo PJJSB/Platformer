@@ -8,12 +8,12 @@ namespace Assets.Scripts.Player.States
         private float airMovementStrength = 50f;
         private float airSpeedMax = 12f;
 
-        public void EnterState(Player player)
+        public void EnterState(PlayerMovement player)
         {
             player.speed.y = Mathf.Sqrt(2 * jumpHeight * player.gravityStrength);
         }
 
-        public void UpdateState(Player player)
+        public void UpdateState(PlayerMovement player)
         {
             // Input affects movement in air
             Vector3 movement = player.AlignMovementWithCamera(player.movementInput * airMovementStrength);

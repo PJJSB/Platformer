@@ -7,12 +7,12 @@ namespace Assets.Scripts.Player.States
         private static readonly int isRunningAnimator = Animator.StringToHash("isRunning");
         private float runningSpeed = 16f;
 
-        public void EnterState(Player player)
+        public void EnterState(PlayerMovement player)
         {
             player.animator.SetBool(isRunningAnimator, true);
         }
 
-        public void UpdateState(Player player)
+        public void UpdateState(PlayerMovement player)
         {
             // If player stops using WASD/analog stick
             if(player.movementInput.magnitude <= player.deadzone)

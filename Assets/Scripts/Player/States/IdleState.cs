@@ -4,12 +4,12 @@ namespace Assets.Scripts.Player.States
 {
     public class IdleState : IState
     {
-        public void EnterState(Player player)
+        public void EnterState(PlayerMovement player)
         {
             player.speed = Vector3.zero;
         }
 
-        public void UpdateState(Player player)
+        public void UpdateState(PlayerMovement player)
         {
             // If not idle
             if (player.movementInput.magnitude > player.deadzone)

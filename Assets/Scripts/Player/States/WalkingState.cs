@@ -7,12 +7,12 @@ namespace Assets.Scripts.Player.States
         private static readonly int isWalkingAnimator = Animator.StringToHash("isWalking");
         private float walkingSpeed = 10f;
 
-        public void EnterState(Player player)
+        public void EnterState(PlayerMovement player)
         {
             player.animator.SetBool(isWalkingAnimator, true);
         }
 
-        public void UpdateState(Player player)
+        public void UpdateState(PlayerMovement player)
         {
             // If idle
             if (player.movementInput.magnitude <= player.deadzone)

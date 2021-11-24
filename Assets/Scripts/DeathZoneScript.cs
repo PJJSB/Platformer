@@ -11,7 +11,7 @@ public class DeathZoneScript : MonoBehaviour
         if (other.name == "Character")
         {
             CharacterController controller = other.GetComponent<CharacterController>();
-            Player player = other.GetComponent<Player>();
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
 
             // The jank is real, controller needs to be disabled to be able to pass through objects to a respawn anchor
             controller.enabled = false;

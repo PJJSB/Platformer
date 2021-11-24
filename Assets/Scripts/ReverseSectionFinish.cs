@@ -7,7 +7,7 @@ public class ReverseSectionFinish : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            Player player = other.GetComponent<Player>();
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
             player.isReversing = false;
         }
     }

@@ -2,12 +2,12 @@
 {
     public class DoubleJumpingState : IState
     {
-        public void EnterState(Player player)
+        public void EnterState(PlayerMovement player)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateState(Player player)
+        public void UpdateState(PlayerMovement player)
         {
             throw new System.NotImplementedException();
         }
