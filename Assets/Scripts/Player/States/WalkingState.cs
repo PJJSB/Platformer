@@ -22,8 +22,8 @@ namespace Assets.Scripts.Player.States
                 return;
             }
 
-            // If running
-            if (Input.GetKey(KeyCode.LeftShift))
+            // If player releases control
+            if (!Input.GetKey(KeyCode.LeftControl))
             {
                 player.animator.SetBool(isWalkingAnimator, false);
                 player.SwitchState(player.runningState);

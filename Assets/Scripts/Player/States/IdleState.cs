@@ -15,14 +15,14 @@ namespace Assets.Scripts.Player.States
             if (player.movementInput.magnitude > player.deadzone)
             {
                 // This can happen if the player starts walking while already holding shift
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftControl))
                 {
-                    player.SwitchState(player.runningState);
+                    player.SwitchState(player.walkingState);
                     return;
                 }
                 else
                 {
-                    player.SwitchState(player.walkingState);
+                    player.SwitchState(player.runningState);
                     return;
                 }
             }

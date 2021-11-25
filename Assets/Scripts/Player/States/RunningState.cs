@@ -22,8 +22,8 @@ namespace Assets.Scripts.Player.States
                 return;
             }
 
-            // If player releases shift
-            if(!Input.GetKey(KeyCode.LeftShift))
+            // If walking
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 player.animator.SetBool(isRunningAnimator, false);
                 player.SwitchState(player.walkingState);
@@ -35,6 +35,13 @@ namespace Assets.Scripts.Player.States
             {
                 player.animator.SetBool(isRunningAnimator, false);
                 player.SwitchState(player.jumpingState);
+                return;
+            }
+
+            if (!player.controller.isGrounded)
+            {
+                player.animator.SetBool(isRunningAnimator, false);
+                player.state = player.jumpingState;
                 return;
             }
 
