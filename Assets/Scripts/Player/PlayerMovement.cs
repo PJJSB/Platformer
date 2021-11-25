@@ -24,6 +24,8 @@ namespace Assets.Scripts.Player
         public float gravityStrength = 40f;
         public Vector3 speed;
         public Vector3 acceleration;
+        
+        public Light headlamp;
 
         void Start()
         {
@@ -62,6 +64,11 @@ namespace Assets.Scripts.Player
             state.UpdateState(this);
 
             ApplyPhysics();
+
+            if (Input.GetKeyDown("l"))
+            {
+                headlamp.enabled = !headlamp.enabled;
+            }
         }
 
         public void ApplyPhysics()
