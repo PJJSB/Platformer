@@ -5,9 +5,10 @@ namespace Assets.Scripts.Player
     public class PlayerMovement : PlayerStateMachine
     {
         // Other components that are attached to this game object
+        public Light headlamp;
         public new Transform camera;
-        [System.NonSerialized] public CharacterController controller;
         [System.NonSerialized] public Animator animator;
+        [System.NonSerialized] public CharacterController controller;
 
         // Indicates horizontal movement (WASD for 1/0 or analog stick for values inbetween)
         public Vector3 movementInput;
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Player
         [System.NonSerialized] public float deadzone = 0.1f;
 
         // How many unity units the player should move downward to stay attached on the floor during floor movement
+
         [System.NonSerialized] public float floorGlue = -5f;
         [System.NonSerialized] public float gravityStrength = 40f;
         [System.NonSerialized] public float jumpHeight = 2.5f;
@@ -66,6 +68,11 @@ namespace Assets.Scripts.Player
             state.UpdateState(this);
 
             ApplyPhysics();
+
+            if (Input.GetKeyDown("l"))
+            {
+                headlamp.enabled = !headlamp.enabled;
+            }
         }
 
         public void ApplyPhysics()
