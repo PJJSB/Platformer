@@ -37,8 +37,8 @@ namespace Assets.Scripts.Player.States
                 // If the player was moving while landing
                 if (player.movementInput.magnitude > player.deadzone)
                 {
-                    // This can happen if the player lands while already holding shift
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    // This can happen if the player lands while already holding the sneak button
+                    if (player.playerInput.actions["Sneak"].ReadValue<float>() > 0.5f)
                     {
                         player.SwitchState(player.walkingState);
                         return;
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Player.States
                     return;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.LeftShift))
+            else if (player.playerInput.actions["Dash"].triggered)
             {
                 player.SwitchState(player.dashingState);
                 return;

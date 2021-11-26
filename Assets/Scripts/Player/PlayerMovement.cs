@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.Player
 {
@@ -8,9 +9,10 @@ namespace Assets.Scripts.Player
         public Light headlamp;
         public new Transform camera;
         [System.NonSerialized] public Animator animator;
+        [System.NonSerialized] public PlayerInput playerInput;
         [System.NonSerialized] public CharacterController controller;
 
-        // Indicates horizontal movement (WASD for 1/0 or analog stick for values inbetween)
+        // Indicates horizontal movement
         public Vector3 movementInput;
         public Vector3 speed;
         public Vector3 acceleration;
@@ -22,7 +24,6 @@ namespace Assets.Scripts.Player
         [System.NonSerialized] public float deadzone = 0.1f;
 
         // How many unity units the player should move downward to stay attached on the floor during floor movement
-
         [System.NonSerialized] public float floorGlue = -5f;
         [System.NonSerialized] public float gravityStrength = 40f;
         [System.NonSerialized] public float jumpHeight = 2.5f;
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Player
         void Start()
         {
             animator = GetComponent<Animator>();
+            playerInput = GetComponent<PlayerInput>();
             controller = GetComponent<CharacterController>();
             state = idleState;
             acceleration.y = -gravityStrength;
@@ -39,18 +41,9 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            // Get movement input (WASD/arrow keys/analog stick or whatever)
-            movementInput = new Vector3
-            {
-                x = Input.GetAxisRaw("Horizontal"),
-                z = Input.GetAxisRaw("Vertical")
-            };
-
-            // Limit input intensity to 1
-            if (movementInput.sqrMagnitude > 1)
-            {
-                movementInput.Normalize();
-            }
+            // Get movement input for walking around
+            Vector2 horizontalMovement = playerInput.actions["Move"].ReadValue<Vector2>();
+            movementInput = new Vector3(horizontalMovement.x, 0, horizontalMovement.y);
 
             // Rotate player when user provides movement input
             if (movementInput.magnitude > deadzone)
@@ -68,14 +61,9 @@ namespace Assets.Scripts.Player
             state.UpdateState(this);
 
             ApplyPhysics();
-
-            if (Input.GetKeyDown("l"))
-            {
-                headlamp.enabled = !headlamp.enabled;
-            }
         }
 
-        public void ApplyPhysics()
+        void ApplyPhysics()
         {
             // Apply acceleration to speed
             speed += acceleration * Time.deltaTime;
@@ -84,7 +72,7 @@ namespace Assets.Scripts.Player
             controller.Move(speed * Time.deltaTime);
         }
 
-        public void AlignPlayerRotationWithCamera()
+        void AlignPlayerRotationWithCamera()
         {
             float smoothSpeed = 20f;
             Quaternion targetRotation = Quaternion.LookRotation(new Vector3(speed.x, 0, speed.z));
@@ -106,6 +94,11 @@ namespace Assets.Scripts.Player
         {
             base.state = state;
             base.state.EnterState(this);
+        }
+
+        void OnHeadlamp(InputValue value)
+        {
+            headlamp.enabled = !headlamp.enabled;
         }
     }
 }
