@@ -14,7 +14,7 @@ namespace Assets.Scripts.Player.States
 
         public void UpdateState(PlayerMovement player)
         {
-            // If player stops using WASD/analog stick
+            // If player stops moving
             if(player.movementInput.magnitude <= player.deadzone)
             {
                 player.animator.SetBool(isRunningAnimator, false);
@@ -22,8 +22,8 @@ namespace Assets.Scripts.Player.States
                 return;
             }
 
-            // If player releases shift
-            if(!Input.GetKey(KeyCode.LeftShift))
+            // If walking
+            if (player.playerInput.actions["Sneak"].triggered)
             {
                 player.animator.SetBool(isRunningAnimator, false);
                 player.SwitchState(player.walkingState);
@@ -31,10 +31,17 @@ namespace Assets.Scripts.Player.States
             }
 
             // If jumping
-            if (Input.GetKeyDown(KeyCode.Space) && player.controller.isGrounded)
+            if (player.playerInput.actions["Jump"].triggered && player.controller.isGrounded)
             {
                 player.animator.SetBool(isRunningAnimator, false);
                 player.SwitchState(player.jumpingState);
+                return;
+            }
+
+            if (!player.controller.isGrounded)
+            {
+                player.animator.SetBool(isRunningAnimator, false);
+                player.state = player.jumpingState;
                 return;
             }
 

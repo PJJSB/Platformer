@@ -4,27 +4,23 @@ namespace Assets.Scripts.Player.States
 {
     public class JumpingState : IState
     {
-        private float jumpHeight = 2.5f;
-        private float airMovementStrength = 50f;
-        private float airSpeedMax = 12f;
-
         public void EnterState(PlayerMovement player)
         {
-            player.speed.y = Mathf.Sqrt(2 * jumpHeight * player.gravityStrength);
+            player.speed.y = Mathf.Sqrt(2 * player.jumpHeight * player.gravityStrength);
         }
 
         public void UpdateState(PlayerMovement player)
         {
             // Input affects movement in air
-            Vector3 movement = player.AlignMovementWithCamera(player.movementInput * airMovementStrength);
+            Vector3 movement = player.AlignMovementWithCamera(player.movementInput * player.airMovementStrength);
             player.acceleration.x = movement.x;
             player.acceleration.z = movement.z;
 
             // Trim the player's speed to max speed when it exceeds max speed
             Vector2 horizontalSpeed = new Vector2(player.speed.x, player.speed.z);
-            if(horizontalSpeed.sqrMagnitude > airSpeedMax * airSpeedMax)
+            if(horizontalSpeed.sqrMagnitude > player.airSpeedMax * player.airSpeedMax)
             {
-                horizontalSpeed = horizontalSpeed.normalized * airSpeedMax;
+                horizontalSpeed = horizontalSpeed.normalized * player.airSpeedMax;
                 player.speed.x = horizontalSpeed.x;
                 player.speed.z = horizontalSpeed.y;
             }
@@ -37,18 +33,19 @@ namespace Assets.Scripts.Player.States
 
                 player.acceleration.x = 0;
                 player.acceleration.z = 0;
+
                 // If the player was moving while landing
                 if (player.movementInput.magnitude > player.deadzone)
                 {
-                    // This can happen if the player lands while already holding shift
-                    if (Input.GetKey(KeyCode.LeftShift))
+                    // This can happen if the player lands while already holding the sneak button
+                    if (player.playerInput.actions["Sneak"].ReadValue<float>() > 0.5f)
                     {
-                        player.SwitchState(player.runningState);
+                        player.SwitchState(player.walkingState);
                         return;
                     }
                     else
                     {
-                        player.SwitchState(player.walkingState);
+                        player.SwitchState(player.runningState);
                         return;
                     }
                 }
@@ -57,6 +54,16 @@ namespace Assets.Scripts.Player.States
                     player.SwitchState(player.idleState);
                     return;
                 }
+            }
+            else if (player.playerInput.actions["Jump"].triggered) 
+            {
+                player.SwitchState(player.doubleJumpingState);
+                return;
+            }
+            else if (player.playerInput.actions["Dash"].triggered)
+            {
+                player.SwitchState(player.dashingState);
+                return;
             }
         }
     }

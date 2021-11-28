@@ -22,8 +22,8 @@ namespace Assets.Scripts.Player.States
                 return;
             }
 
-            // If running
-            if (Input.GetKey(KeyCode.LeftShift))
+            // If player releases sneak button
+            if (player.playerInput.actions["Sneak"].ReadValue<float>() < 0.5f)
             {
                 player.animator.SetBool(isWalkingAnimator, false);
                 player.SwitchState(player.runningState);
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Player.States
             }
 
             // If jumping
-            if (Input.GetKeyDown(KeyCode.Space) && player.controller.isGrounded)
+            if (player.playerInput.actions["Jump"].triggered && player.controller.isGrounded)
             {
                 player.animator.SetBool(isWalkingAnimator, false);
                 player.SwitchState(player.jumpingState);

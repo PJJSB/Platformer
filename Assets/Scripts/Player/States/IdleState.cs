@@ -14,21 +14,21 @@ namespace Assets.Scripts.Player.States
             // If not idle
             if (player.movementInput.magnitude > player.deadzone)
             {
-                // This can happen if the player starts walking while already holding shift
-                if (Input.GetKey(KeyCode.LeftShift))
+                // This can happen if the player starts walking while already holding the sneak button
+                if (player.playerInput.actions["Sneak"].ReadValue<float>() > 0.5f)
                 {
-                    player.SwitchState(player.runningState);
+                    player.SwitchState(player.walkingState);
                     return;
                 }
                 else
                 {
-                    player.SwitchState(player.walkingState);
+                    player.SwitchState(player.runningState);
                     return;
                 }
             }
 
             // If jumping
-            if (Input.GetKeyDown(KeyCode.Space) && player.controller.isGrounded)
+            if (player.playerInput.actions["Jump"].triggered && player.controller.isGrounded)
             {
                 player.SwitchState(player.jumpingState);
                 return;

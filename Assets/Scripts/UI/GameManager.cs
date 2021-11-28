@@ -1,6 +1,7 @@
 using Assets.Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
     public GameObject pauseMenu;
@@ -9,7 +10,6 @@ public class GameManager : MonoBehaviour
     public GameObject hubRespawnAnchor;
     public PlayerMovement player;
 
-    // Start is called before the first frame update
     private void Start()
     {
         //Set pause menu to deactive as default
@@ -19,10 +19,9 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (player.playerInput.actions["Pause"].triggered)
         {
             if (isPaused)
             {
