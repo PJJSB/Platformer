@@ -288,11 +288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2082321878887561278, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000017652159
+      value: -0.000000017658117
       objectReference: {fileID: 0}
     - target: {fileID: 2082321878887561278, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000016589565
+      value: 0.0000000016595164
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879286165637, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -300,15 +300,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879286165637, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1296719
+      value: 0.12967192
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879286165637, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000009872573
+      value: -0.000000008528033
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879286165637, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000012910961
+      value: 0.0000000011152628
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879495585358, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -618,6 +618,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a8e3221354ee67449f508a03b8ef4e9, type: 3}
+--- !u!114 &181883396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668069592994307802, guid: 7a8e3221354ee67449f508a03b8ef4e9, type: 3}
+  m_PrefabInstance: {fileID: 181883395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99d4e099bf2b734db15a2ef3ad28bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &908500996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
@@ -661,11 +672,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000027696423
+      value: 0.0000000027696425
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 3.1110473e-10
+      value: 3.1110453e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -783,6 +794,26 @@ PrefabInstance:
     - target: {fileID: 430916751968802525, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 430916752641377590, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 181883396}
+    - target: {fileID: 430916752641377590, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 430916752641377590, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 430916752786065895, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 181883396}
+    - target: {fileID: 430916752786065895, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}

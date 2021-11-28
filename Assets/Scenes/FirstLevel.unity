@@ -1230,6 +1230,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &71942133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668069592994307802, guid: 7a8e3221354ee67449f508a03b8ef4e9, type: 3}
+  m_PrefabInstance: {fileID: 1588013434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99d4e099bf2b734db15a2ef3ad28bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &124533624
 GameObject:
   m_ObjectHideFlags: 0
@@ -27370,11 +27381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879495585358, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000042747175
+      value: 0.0000000042747175
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879495585358, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 4.8011894e-10
+      value: -4.8011894e-10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
@@ -27786,6 +27797,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 430916752641377590, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 71942133}
+    - target: {fileID: 430916752641377590, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 430916752641377590, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 430916752786065895, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 71942133}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7873dbd081a88948b584ded18d8e02a, type: 3}
 --- !u!1 &1953232306 stripped
@@ -34285,11 +34312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000042748716
+      value: 0.000000004274901
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 4.7999815e-10
+      value: -4.802608e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
