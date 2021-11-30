@@ -8,9 +8,12 @@ namespace Assets.Scripts.Player.States
         private float airSpeedMax = 30f;
         private float dashingTime;
         private float dashingTimeMax = 0.2f;
+        
+        private static readonly int isDashingAnimator = Animator.StringToHash("isDashing");
 
         public void EnterState(PlayerMovement player)
         {
+            player.animator.SetBool(isDashingAnimator, true);
             Vector3 movement;
 
             if (player.movementInput.magnitude > player.deadzone)
@@ -65,17 +68,20 @@ namespace Assets.Scripts.Player.States
                     // This can happen if the player lands while already holding the sneak button
                     if (player.playerInput.actions["Sneak"].ReadValue<float>() > 0.5f)
                     {
+                        player.animator.SetBool(isDashingAnimator, false);
                         player.SwitchState(player.walkingState);
                         return;
                     }
                     else
                     {
+                        player.animator.SetBool(isDashingAnimator, false);
                         player.SwitchState(player.runningState);
                         return;
                     }
                 }
                 else
                 {
+                    player.animator.SetBool(isDashingAnimator, false);
                     player.SwitchState(player.idleState);
                     return;
                 }
