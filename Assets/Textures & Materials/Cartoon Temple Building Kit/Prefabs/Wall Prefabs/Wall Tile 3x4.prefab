@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4000014240951168}
   - component: {fileID: 33000010837207548}
   - component: {fileID: 23000014175684570}
+  - component: {fileID: -9010228256433362556}
   m_Layer: 0
   m_Name: Wall Tile 3x4
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-9010228256433362556
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014290858600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.999996, y: 31.999996, z: 0.00012331016}
+  m_Center: {x: 0, y: 15.999998, z: 0.000057744986}
