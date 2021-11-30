@@ -4,8 +4,10 @@ namespace Assets.Scripts.Player.States
 {
     public class DoubleJumpingState : IState
     {
+        private static readonly int isDoubleJumpingAnimator = Animator.StringToHash("isDoubleJumping");
         public void EnterState(PlayerMovement player)
         {
+            player.animator.SetBool(isDoubleJumpingAnimator, true);
             player.speed.y = Mathf.Sqrt(2 * player.jumpHeight * player.gravityStrength);
         }
 
@@ -40,23 +42,27 @@ namespace Assets.Scripts.Player.States
                     // This can happen if the player lands while already holding the sneak button
                     if (player.playerInput.actions["Sneak"].ReadValue<float>() > 0.5f)
                     {
+                        player.animator.SetBool(isDoubleJumpingAnimator, false);
                         player.SwitchState(player.walkingState);
                         return;
                     }
                     else
                     {
+                        player.animator.SetBool(isDoubleJumpingAnimator, false);
                         player.SwitchState(player.runningState);
                         return;
                     }
                 }
                 else
                 {
+                    player.animator.SetBool(isDoubleJumpingAnimator, false);
                     player.SwitchState(player.idleState);
                     return;
                 }
             }
             else if (player.playerInput.actions["Dash"].triggered)
             {
+                player.animator.SetBool(isDoubleJumpingAnimator, false);
                 player.SwitchState(player.dashingState);
                 return;
             }
