@@ -4,18 +4,14 @@ public class MovingPlatform : MonoBehaviour
 {
     public GameObject PlatformObject;
 
-    public bool active;
-    public GameObject[] WayPoints;
-    public int WayPointIndex;
-    public float MinDistance;
-    public float MoveSpeed;
+    public bool active = false;
+    public GameObject[] WayPoints = new GameObject[2];
+    public int WayPointIndex = 0;
+    public float MinDistance = .05f;
+    public float MoveSpeed = 5f;
 
     void Start()
     {
-        WayPoints = new GameObject[2];
-        WayPointIndex = 0;
-        MinDistance = .1f;
-        MoveSpeed = 1f;
     }
 
     void Update()
@@ -41,15 +37,5 @@ public class MovingPlatform : MonoBehaviour
     public void ToggleMoving()
     {
         active = !active;
-    }
-
-    public void SetWaypoints(Vector3[] positions)
-    {
-        GameObject[] NewWayPoints = new GameObject[positions.Length];
-
-        for (int i = 0; i < NewWayPoints.Length; i++)
-        {
-            //NewWayPoints[i] = Instantiate
-        }
     }
 }
