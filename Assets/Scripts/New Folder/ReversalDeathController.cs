@@ -2,41 +2,39 @@ using UnityEngine;
 
 public class ReversalDeathController : MonoBehaviour
 {
-    //killer object
-    public GameObject PreFabRef;
-    private GameObject _ReversalDeathObject;
-    private DeathZoneScript _ReversalDeathScript;
-
+    //Killer object this script should be attached to
+    public GameObject Killer;
+    //Object to chase
+    public GameObject Subject;
+    
     //Flag for activy
-    private bool _IsChasing;
+    public bool _IsChasing = false;
     //The speed the killing zone chases at
-    private float _ChaseSpeed;
+    public float _ChaseSpeed = 5.0f;
+    //Waypoint for spawning the killer
+    public GameObject KillerSpawnPoint;
     
 
     void Start()
     {
-        _IsChasing = false;
-        _ChaseSpeed = 1.0f;
     }
 
     void Update()
     {
-        if (_ReversalDeathObject != null)
+        if (_IsChasing)
         {
-            Vector3 spawn = _ReversalDeathScript.respawnAnchorReturn.transform.position;
-            Vector3 subject = _ReversalDeathScript.respawnAnchor.transform.position;
-            //Destination - Origin
-            Vector3 direction = subject - spawn;
+            //Direction = Destination - Origin
+            Vector3 direction = Subject.transform.position - Killer.transform.position;
             //Normalize to get a usable direction vector
             direction = direction.normalized;
-            //Move the killzone
-            _ReversalDeathObject.transform.position += direction * Time.deltaTime * _ChaseSpeed;
+            //Chase
+            Killer.transform.position += direction * Time.deltaTime * _ChaseSpeed;
         }
     }
 
     public void ChangeChaseSpawnPoint(GameObject ChaseSpawnPoint)
     {
-        _ReversalDeathScript.respawnAnchorReturn = ChaseSpawnPoint;
+        KillerSpawnPoint = ChaseSpawnPoint;
     }
 
     public void ChangeChaseSpeed(float speed)
@@ -46,31 +44,6 @@ public class ReversalDeathController : MonoBehaviour
 
     public void ChangeChaseSubject(GameObject ChaseSubject)
     {
-        _ReversalDeathScript.respawnAnchor = ChaseSubject;
-    }
-
-    public void ReStartReversalChase(Vector3 position)
-    {
-        if (_IsChasing)
-        {
-            _ReversalDeathObject.transform.position = position;
-        }
-    }
-
-    public void StartReversalChase(GameObject ChaseSpawnPoint, GameObject ChaseSubject)
-    {
-        //Set the flag
-        _IsChasing = true;
-        //Instantiate death zone and set references
-        _ReversalDeathObject =  Instantiate(PreFabRef, ChaseSpawnPoint.transform.position, Quaternion.identity);
-        _ReversalDeathScript = _ReversalDeathObject.GetComponent<DeathZoneScript>();
-        ChangeChaseSpawnPoint(ChaseSpawnPoint);
-        ChangeChaseSubject(ChaseSubject);
-    }
-
-    public void StopReversalChase()
-    {
-        _IsChasing = false;
-        Destroy(_ReversalDeathObject);
+        Subject = ChaseSubject;
     }
 }
