@@ -37712,25 +37712,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 584851649}
   m_IsSelectable: 1
-  m_SelectedFaces: 01000000
-  m_SelectedEdges:
-  - a: 8
-    b: 9
-  - a: 9
-    b: 10
-  - a: 10
-    b: 11
-  - a: 11
-    b: 12
-  - a: 13
-    b: 8
-  - a: 14
-    b: 13
-  - a: 12
-    b: 15
-  - a: 15
-    b: 14
-  m_SelectedVertices: 08000000090000000a0000000b0000000c0000000d0000000e0000000f000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &1287666499
 Transform:
   m_ObjectHideFlags: 0
@@ -59766,11 +59750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879495585358, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0000000042747175
+      value: -0.0000000042747175
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879495585358, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 4.8011894e-10
+      value: -4.8011894e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2082321879495585358, guid: 083e8c350cf51d74988933aa9b3be08e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -66658,11 +66642,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000004274901
+      value: -0.0000000042748716
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -4.802608e-10
+      value: 4.7999815e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4009127807133542822, guid: 70eaf7c097f5f91419fb9406b7d871b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
