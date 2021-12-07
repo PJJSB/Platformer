@@ -1,12 +1,13 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public SceneTransition SceneTransition;
+
     public void PlayGame()
     {
         //Load the next scene in line
-        SceneManager.LoadScene("Gameplay");
+        StartCoroutine(SceneTransition.LoadScene());
     }
 
     public void QuitGame()
