@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public SceneTransition sceneTransition;
     public GameObject pauseMenu;
     public bool isPaused;
     
@@ -77,6 +78,6 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(sceneTransition.LoadScene(0));
     }
 }

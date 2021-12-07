@@ -1018,7 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1062,17 +1062,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1320028707 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 937835980750118966, guid: bc472388618e51a4f862a2c62bc93ba5, type: 3}
-  m_PrefabInstance: {fileID: 937835981730408981}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf977c3dd07795449a6db7bc99ddfa97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1330499934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2dfe97226b98634ba23288eb3395354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneTransition: {fileID: 1320028707}
+  sceneTransition: {fileID: 0}
 --- !u!1 &1598999974
 GameObject:
   m_ObjectHideFlags: 0
