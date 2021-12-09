@@ -5,8 +5,10 @@ namespace Assets.Scripts.Player.States
     public class JumpingState : IState
     {
         private static readonly int isJumpingAnimator = Animator.StringToHash("isJumping");
+        private static readonly int isFallingAnimator = Animator.StringToHash("isFalling");
         public void EnterState(PlayerMovement player)
         {
+            player.animator.SetBool(isFallingAnimator, false);
             player.animator.SetBool(isJumpingAnimator, true);
             player.speed.y = Mathf.Sqrt(2 * player.jumpHeight * player.gravityStrength);
         }

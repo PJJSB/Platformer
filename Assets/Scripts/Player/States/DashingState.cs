@@ -10,9 +10,11 @@ namespace Assets.Scripts.Player.States
         private float dashingTimeMax = 0.2f;
         
         private static readonly int isDashingAnimator = Animator.StringToHash("isDashing");
+        private static readonly int isFallingAnimator = Animator.StringToHash("isFalling");
 
         public void EnterState(PlayerMovement player)
         {
+            player.animator.SetBool(isFallingAnimator, false);
             player.animator.SetBool(isDashingAnimator, true);
             Vector3 movement;
 
