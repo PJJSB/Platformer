@@ -108,5 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ecdc62712f9ce4a9d5f90b5cc61587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnAnchor: {fileID: 5893612353618179169, guid: 080b4e8d9a1e36744890183ddc26f6f3, type: 3}
-  respawnAnchorReturn: {fileID: 5893612353618179169, guid: 080b4e8d9a1e36744890183ddc26f6f3, type: 3}
+  respawnAnchor: {fileID: 0}
+  respawnAnchorReturn: {fileID: 0}
