@@ -29,6 +29,11 @@ namespace Assets.Scripts.Player
         [System.NonSerialized] public float jumpHeight = 2.5f;
         [System.NonSerialized] public float airMovementStrength = 50f;
         [System.NonSerialized] public float airSpeedMax = 16f;
+        
+        private static readonly int isFallingAnimator = Animator.StringToHash("isFalling");
+        private static readonly int isJumpingAnimator = Animator.StringToHash("isJumping");
+        private static readonly int isDoubleJumpingAnimator = Animator.StringToHash("isDoubleJumping");
+        private static readonly int isDashingAnimator = Animator.StringToHash("isDashing");
 
         void Start()
         {
@@ -54,7 +59,18 @@ namespace Assets.Scripts.Player
             // If player touches floor, gravity gets reset
             if (controller.isGrounded)
             {
+                animator.SetBool(isFallingAnimator, false);
                 speed.y = floorGlue;
+            }
+            else
+            {
+                if (speed.y < floorGlue)
+                {
+                    animator.SetBool(isJumpingAnimator, false);
+                    animator.SetBool(isDoubleJumpingAnimator, false);
+                    animator.SetBool(isDashingAnimator, false);
+                    animator.SetBool(isFallingAnimator, true);
+                }
             }
 
             // Handle state specific behavior
