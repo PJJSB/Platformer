@@ -6,7 +6,7 @@ namespace Assets.Scripts.Player.States
     {
         private static readonly int isJumpingAnimator = Animator.StringToHash("isJumping");
         private static readonly int isFallingAnimator = Animator.StringToHash("isFalling");
-        private static readonly int isLandingAnimator = Animator.StringToHash("isLanding");
+        
         public void EnterState(PlayerMovement player)
         {
             player.animator.SetBool(isFallingAnimator, false);
@@ -38,7 +38,6 @@ namespace Assets.Scripts.Player.States
                 
                 player.animator.SetBool(isJumpingAnimator, false);
                 player.animator.SetBool(isFallingAnimator, false);
-                player.animator.SetBool(isLandingAnimator, true);
 
                 player.acceleration.x = 0;
                 player.acceleration.z = 0;
@@ -50,14 +49,12 @@ namespace Assets.Scripts.Player.States
                     if (player.playerInput.actions["Sneak"].ReadValue<float>() > 0.5f)
                     {
                         player.animator.SetBool(isJumpingAnimator, false);
-                        player.animator.SetBool(isLandingAnimator, false);
                         player.SwitchState(player.walkingState);
                         return;
                     }
                     else
                     {
                         player.animator.SetBool(isJumpingAnimator, false);
-                        player.animator.SetBool(isLandingAnimator, false);
                         player.SwitchState(player.runningState);
                         return;
                     }
@@ -65,7 +62,6 @@ namespace Assets.Scripts.Player.States
                 else
                 {
                     player.animator.SetBool(isJumpingAnimator, false);
-                    player.animator.SetBool(isLandingAnimator, false);
                     player.SwitchState(player.idleState);
                     return;
                 }
@@ -73,14 +69,12 @@ namespace Assets.Scripts.Player.States
             else if (player.playerInput.actions["Jump"].triggered) 
             {
                 player.animator.SetBool(isJumpingAnimator, false);
-                player.animator.SetBool(isLandingAnimator, false);
                 player.SwitchState(player.doubleJumpingState);
                 return;
             }
             else if (player.playerInput.actions["Dash"].triggered)
             {
                 player.animator.SetBool(isJumpingAnimator, false);
-                player.animator.SetBool(isLandingAnimator, false);
                 player.SwitchState(player.dashingState);
                 return;
             }

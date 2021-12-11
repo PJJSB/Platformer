@@ -37,6 +37,13 @@ namespace Assets.Scripts.Player.States
                 player.SwitchState(player.jumpingState);
                 return;
             }
+            
+            if (!player.controller.isGrounded)
+            {
+                player.animator.SetBool(isWalkingAnimator, false);
+                player.state = player.jumpingState;
+                return;
+            }
 
             Vector3 movement = player.AlignMovementWithCamera(player.movementInput * walkingSpeed);
             player.speed.x = movement.x;
