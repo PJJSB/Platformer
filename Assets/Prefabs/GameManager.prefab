@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99d4e099bf2b734db15a2ef3ad28bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneTransition: {fileID: 0}
   pauseMenu: {fileID: 0}
   isPaused: 0
   hubRespawnAnchor: {fileID: 0}
