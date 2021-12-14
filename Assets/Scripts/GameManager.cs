@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
+
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }
+
     public void ReturnToHub()
     {
         //Hide cursor and lock it
@@ -62,6 +65,8 @@ public class GameManager : MonoBehaviour
         pauseMenu?.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
 
         var controller = player.controller;
 
@@ -77,6 +82,8 @@ public class GameManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
+
         Time.timeScale = 1f;
         StartCoroutine(sceneTransition.LoadScene(0));
     }

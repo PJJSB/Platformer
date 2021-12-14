@@ -14,6 +14,8 @@ namespace Assets.Scripts.Player.States
 
         public void EnterState(PlayerMovement player)
         {
+            AudioManager.GetInstance().PlaySound(AudioManager.SoundType.dash);
+
             player.animator.SetBool(isFallingAnimator, false);
             player.animator.SetBool(isDashingAnimator, true);
             Vector3 movement;
@@ -59,7 +61,7 @@ namespace Assets.Scripts.Player.States
             if (player.controller.isGrounded)
             {
                 // Play impact sound
-                AudioManager.GetInstance().Play(AudioManager.SoundType.impact);
+                AudioManager.GetInstance().PlaySound(AudioManager.SoundType.impact);
 
                 player.acceleration.x = 0;
                 player.acceleration.z = 0;

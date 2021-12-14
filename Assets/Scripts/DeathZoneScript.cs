@@ -13,7 +13,7 @@ public class DeathZoneScript : MonoBehaviour
             CharacterController controller = other.GetComponent<CharacterController>();
             PlayerMovement player = other.GetComponent<PlayerMovement>();
 
-            AudioManager.GetInstance().Play(AudioManager.SoundType.death);
+            AudioManager.GetInstance().PlaySound(AudioManager.SoundType.death);
 
             // The jank is real, controller needs to be disabled to be able to pass through objects to a respawn anchor
             controller.enabled = false;
