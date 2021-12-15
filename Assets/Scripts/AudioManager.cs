@@ -6,24 +6,52 @@ public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
     private float volume = 0.2f;
-    private AudioSource playerAudioSource;
-    public GameObject player;
+    public AudioSource playerAudioSource;
+    public AudioSource musicAudioSource;
+    public AudioSource uiAudioSource;
 
     public enum SoundType
     {
         footstep,
         impact,
-        death
+        death,
+        dash,
+        doubleJump,
+        uiOnClick,
+        uiOnSelect,
+        uiOnStart
+    }
+
+    public enum MusicType
+    {
+        introMusic,
     }
 
     public List<AudioClip> footsteps;
     public AudioClip fallImpact;
-    public AudioClip deathSound;
+    public AudioClip doubleJump;
+    public AudioClip dash;
+    public AudioClip death;
+    public AudioClip uiOnClick;
+    public AudioClip uiOnSelect;
+    public AudioClip uiOnStart;
 
-    void Start()
+    public AudioClip introMusic;
+
+    private void Awake()
     {
-        instance = this;
-        playerAudioSource = player.GetComponent<AudioSource>();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
+
+        musicAudioSource.volume = volume;
+        playerAudioSource.volume = volume;
+        uiAudioSource.volume = volume;
     }
 
     public static AudioManager GetInstance()
@@ -31,7 +59,7 @@ public class AudioManager : MonoBehaviour
         return instance;
     }
 
-    public void Play(SoundType soundType)
+    public void PlaySound(SoundType soundType)
     {
         switch (soundType)
         {
@@ -46,11 +74,52 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case SoundType.death:
-                playerAudioSource.PlayOneShot(deathSound, volume);
+                playerAudioSource.PlayOneShot(death, volume);
+                break;
+
+            case SoundType.dash:
+                playerAudioSource.PlayOneShot(dash, volume);
+                break;
+
+            case SoundType.doubleJump:
+                playerAudioSource.PlayOneShot(doubleJump, volume);
+                break;
+
+            case SoundType.uiOnClick:
+                uiAudioSource.PlayOneShot(uiOnClick, volume);
+                break;
+
+            case SoundType.uiOnSelect:
+                uiAudioSource.PlayOneShot(uiOnSelect, volume);
+                break;
+
+            case SoundType.uiOnStart:
+                uiAudioSource.PlayOneShot(uiOnStart, volume);
                 break;
 
             default:
                 break;
         }
+    }
+
+    public void PlayMusic(MusicType musicType)
+    {
+        switch (musicType)
+        {
+            case MusicType.introMusic:
+                Debug.Log(introMusic);
+                Debug.Log(uiAudioSource);
+                musicAudioSource.clip = introMusic;
+                musicAudioSource.Play();
+                break;
+            
+            default:
+                break;
+        }
+    }
+
+    public void StopMusic()
+    {
+        musicAudioSource.Stop();
     }
 }

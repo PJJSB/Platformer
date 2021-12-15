@@ -4,6 +4,6 @@ public class PlayerAudio : MonoBehaviour
 {
     private void PlayFootstep()
     {
-        AudioManager.GetInstance().Play(AudioManager.SoundType.footstep);
+        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.footstep);
     }
 }

@@ -34,7 +34,7 @@ namespace Assets.Scripts.Player.States
             if (player.controller.isGrounded)
             {
                 // Play impact sound
-                AudioManager.GetInstance().Play(AudioManager.SoundType.impact);
+                AudioManager.GetInstance().PlaySound(AudioManager.SoundType.impact);
                 
                 player.animator.SetBool(isJumpingAnimator, false);
                 player.animator.SetBool(isFallingAnimator, false);
