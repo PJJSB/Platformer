@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
     private float volume = 0.2f;
+    private float uiVolume = 0.4f;
     public AudioSource playerAudioSource;
     public AudioSource musicAudioSource;
     public AudioSource uiAudioSource;
@@ -51,7 +52,7 @@ public class AudioManager : MonoBehaviour
 
         musicAudioSource.volume = volume;
         playerAudioSource.volume = volume;
-        uiAudioSource.volume = volume;
+        uiAudioSource.volume = uiVolume;
     }
 
     public static AudioManager GetInstance()
