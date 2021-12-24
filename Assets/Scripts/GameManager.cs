@@ -1,6 +1,8 @@
 using Assets.Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
     
     public GameObject hubRespawnAnchor;
     public PlayerMovement player;
+    
+    public Toggle cameraYAxisInversionToggle;
+    public CinemachineFreeLook cinemachineFreeLook;
 
     private void Start()
     {
@@ -47,6 +52,8 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
+        
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
 
         //Hide cursor and lock it
