@@ -844,7 +844,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":-0.1888178586959839,"y":0.6293928623199463,"z":0.0},"size":{"x":14.5,"y":8.260000228881836,"z":1.0}}'
+      m_SerializableObject: '{"center":{"x":-0.1888178586959839,"y":0.6293928623199463,"z":0.0},"size":{"x":18.200000762939454,"y":11.770000457763672,"z":1.0}}'
     m_Space: 0
   m_Property:
     name: Box
