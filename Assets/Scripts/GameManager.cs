@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
+
+        //Play explore music
+        AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.exploreMusic);
     }
 
     private void Update()

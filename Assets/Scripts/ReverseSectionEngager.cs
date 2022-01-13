@@ -9,6 +9,8 @@ public class ReverseSectionEngager : MonoBehaviour
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             player.isReversing = true;
+            AudioManager.GetInstance().StopMusic();
+            AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.reversalMusic);
         }
     }
 }
