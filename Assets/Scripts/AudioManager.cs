@@ -6,24 +6,57 @@ public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
     private float volume = 0.2f;
-    private AudioSource playerAudioSource;
-    public GameObject player;
+    private float uiVolume = 0.4f;
+    public AudioSource playerAudioSource;
+    public AudioSource musicAudioSource;
+    public AudioSource uiAudioSource;
 
     public enum SoundType
     {
         footstep,
         impact,
-        death
+        death,
+        dash,
+        doubleJump,
+        uiOnClick,
+        uiOnSelect,
+        uiOnStart
+    }
+
+    public enum MusicType
+    {
+        introMusic,
+        exploreMusic,
+        reversalMusic
     }
 
     public List<AudioClip> footsteps;
     public AudioClip fallImpact;
-    public AudioClip deathSound;
+    public AudioClip doubleJump;
+    public AudioClip dash;
+    public AudioClip death;
+    public AudioClip uiOnClick;
+    public AudioClip uiOnSelect;
+    public AudioClip uiOnStart;
 
-    void Start()
+    public AudioClip introMusic;
+    public AudioClip exploreMusic;
+    public AudioClip reversalMusic;
+
+    private void Awake()
     {
-        instance = this;
-        playerAudioSource = player.GetComponent<AudioSource>();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
+
+        musicAudioSource.volume = volume;
+        playerAudioSource.volume = volume;
+        uiAudioSource.volume = uiVolume;
     }
 
     public static AudioManager GetInstance()
@@ -31,7 +64,7 @@ public class AudioManager : MonoBehaviour
         return instance;
     }
 
-    public void Play(SoundType soundType)
+    public void PlaySound(SoundType soundType)
     {
         switch (soundType)
         {
@@ -46,11 +79,65 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case SoundType.death:
-                playerAudioSource.PlayOneShot(deathSound, volume);
+                playerAudioSource.PlayOneShot(death, volume);
+                break;
+
+            case SoundType.dash:
+                playerAudioSource.PlayOneShot(dash, volume);
+                break;
+
+            case SoundType.doubleJump:
+                playerAudioSource.PlayOneShot(doubleJump, volume);
+                break;
+
+            case SoundType.uiOnClick:
+                uiAudioSource.PlayOneShot(uiOnClick, volume);
+                break;
+
+            case SoundType.uiOnSelect:
+                uiAudioSource.PlayOneShot(uiOnSelect, volume);
+                break;
+
+            case SoundType.uiOnStart:
+                uiAudioSource.PlayOneShot(uiOnStart, volume);
                 break;
 
             default:
                 break;
         }
+    }
+
+    public void PlayMusic(MusicType musicType)
+    {
+        switch (musicType)
+        {
+            case MusicType.introMusic:
+                musicAudioSource.clip = introMusic;
+                musicAudioSource.volume = volume;
+                musicAudioSource.Play();
+                break;
+
+            case MusicType.exploreMusic:
+                musicAudioSource.clip = exploreMusic;
+                //Set appropriate volume for music, this is needed for the other sounds to be heard
+                musicAudioSource.volume = volume / 3;
+                musicAudioSource.Play();
+                break;
+
+            case MusicType.reversalMusic:
+                musicAudioSource.clip = reversalMusic;
+                //Set appropriate volume for music, this is needed for the other sounds to be heard
+                musicAudioSource.volume = volume / 3;
+                musicAudioSource.Play();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void StopMusic()
+    {
+        musicAudioSource.Stop();
     }
 }

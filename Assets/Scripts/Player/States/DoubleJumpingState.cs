@@ -11,6 +11,8 @@ namespace Assets.Scripts.Player.States
             player.animator.SetBool(isFallingAnimator, false);
             player.animator.SetBool(isDoubleJumpingAnimator, true);
             player.speed.y = Mathf.Sqrt(2 * player.jumpHeight * player.gravityStrength);
+
+            AudioManager.GetInstance().PlaySound(AudioManager.SoundType.doubleJump);
         }
 
         public void UpdateState(PlayerMovement player)
@@ -33,7 +35,7 @@ namespace Assets.Scripts.Player.States
             if (player.controller.isGrounded)
             {
                 // Play impact sound
-                AudioManager.GetInstance().Play(AudioManager.SoundType.impact);
+                AudioManager.GetInstance().PlaySound(AudioManager.SoundType.impact);
 
                 player.acceleration.x = 0;
                 player.acceleration.z = 0;
