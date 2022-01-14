@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7103351051704861471, guid: 3af1244442eb2b848ad5724d156a9c46, type: 3}
+      propertyPath: uiOnSelect
+      value: 
+      objectReference: {fileID: 8300000, guid: 6346dcf473b63c942b58cf25ada5254e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3af1244442eb2b848ad5724d156a9c46, type: 3}
 --- !u!1 &135084654
@@ -5009,6 +5013,7 @@ GameObject:
   - component: {fileID: 277945582}
   - component: {fileID: 277945581}
   - component: {fileID: 277945584}
+  - component: {fileID: 277945585}
   m_Layer: 5
   m_Name: btn_NewGame
   m_TagString: Untagged
@@ -5150,6 +5155,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &277945585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277945579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5d9cce69291dd4f8f5269c13a83213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &361256872
 GameObject:
   m_ObjectHideFlags: 0
@@ -5633,6 +5650,7 @@ GameObject:
   - component: {fileID: 734763160}
   - component: {fileID: 734763159}
   - component: {fileID: 734763158}
+  - component: {fileID: 734763162}
   m_Layer: 5
   m_Name: btn_Exit
   m_TagString: Untagged
@@ -5774,6 +5792,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734763156}
   m_CullTransparentMesh: 1
+--- !u!114 &734763162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734763156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5d9cce69291dd4f8f5269c13a83213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &825012498
 GameObject:
   m_ObjectHideFlags: 0

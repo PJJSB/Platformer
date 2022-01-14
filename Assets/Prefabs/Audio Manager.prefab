@@ -441,6 +441,8 @@ MonoBehaviour:
   dash: {fileID: 8300000, guid: 2bcff8d20c88a18498055247cf8a9609, type: 3}
   death: {fileID: 8300000, guid: 37147ddf59fd32a44822ba9da15d47c0, type: 3}
   uiOnClick: {fileID: 8300000, guid: d7505e9b4d19aaa488c2ea315c6d9655, type: 3}
-  uiOnSelect: {fileID: 0}
+  uiOnSelect: {fileID: 8300000, guid: 6346dcf473b63c942b58cf25ada5254e, type: 3}
   uiOnStart: {fileID: 8300000, guid: 8d5ed829bd6550548ae897edaf420ae2, type: 3}
   introMusic: {fileID: 8300000, guid: 02b64b9d634b5254faa244f5cc91d897, type: 3}
+  exploreMusic: {fileID: 8300000, guid: 5c41085f866ba1f4c94ef451bf6fbf02, type: 3}
+  reversalMusic: {fileID: 8300000, guid: 25e674abb471b2a4ba8a760e193fbb22, type: 3}

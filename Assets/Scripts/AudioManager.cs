@@ -26,6 +26,8 @@ public class AudioManager : MonoBehaviour
     public enum MusicType
     {
         introMusic,
+        exploreMusic,
+        reversalMusic
     }
 
     public List<AudioClip> footsteps;
@@ -38,6 +40,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip uiOnStart;
 
     public AudioClip introMusic;
+    public AudioClip exploreMusic;
+    public AudioClip reversalMusic;
 
     private void Awake()
     {
@@ -108,12 +112,25 @@ public class AudioManager : MonoBehaviour
         switch (musicType)
         {
             case MusicType.introMusic:
-                Debug.Log(introMusic);
-                Debug.Log(uiAudioSource);
                 musicAudioSource.clip = introMusic;
+                musicAudioSource.volume = volume;
                 musicAudioSource.Play();
                 break;
-            
+
+            case MusicType.exploreMusic:
+                musicAudioSource.clip = exploreMusic;
+                //Set appropriate volume for music, this is needed for the other sounds to be heard
+                musicAudioSource.volume = volume / 3;
+                musicAudioSource.Play();
+                break;
+
+            case MusicType.reversalMusic:
+                musicAudioSource.clip = reversalMusic;
+                //Set appropriate volume for music, this is needed for the other sounds to be heard
+                musicAudioSource.volume = volume / 3;
+                musicAudioSource.Play();
+                break;
+
             default:
                 break;
         }
