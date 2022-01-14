@@ -29,6 +29,9 @@ public class DeathZoneScript : MonoBehaviour
             }
             
             controller.enabled = true;
+            
+            // Increment deathcount
+            other.GetComponent<PlayerStats>().deathCount++;
         }
     }
 }
