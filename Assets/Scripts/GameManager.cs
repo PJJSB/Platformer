@@ -25,12 +25,11 @@ public class GameManager : MonoBehaviour
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
 
-        _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
-        _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
-
-
         //Play explore music
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.exploreMusic);
+
+        _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
+        _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
