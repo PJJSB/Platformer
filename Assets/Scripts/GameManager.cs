@@ -1,6 +1,8 @@
 using Assets.Scripts.Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class GameManager : MonoBehaviour
     
     public GameObject hubRespawnAnchor;
     public PlayerMovement player;
+    public PlayerStats playerStats;
+
+    private TextMeshProUGUI _playTime;
+    private TextMeshProUGUI _deaths;
 
     private void Start()
     {
@@ -18,6 +24,10 @@ public class GameManager : MonoBehaviour
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
+
+        _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
+        _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
+
     }
 
     private void Update()
@@ -43,6 +53,10 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        
+        // Update playtime and deaths in pause menu
+        _playTime.text = "Playtime: " + playerStats.ReturnTime();
+        _deaths.text = "Deaths: " + playerStats.deathCount;
     }
 
     public void ResumeGame()
