@@ -46,6 +46,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Headlamp Halo",
+                    "type": "Button",
+                    "id": "85819dff-7591-4e14-a3d1-11be48c520e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "13ac1881-1f29-4e00-bfa5-248574e0a89d",
@@ -258,6 +266,28 @@
                     "processors": "ScaleVector2(x=15,y=5)",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46d5ad24-9e7c-441e-a80a-ef894802b6c9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Headlamp Halo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0a26efe-9e5a-43aa-8401-04a0ba84a596",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Headlamp Halo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
