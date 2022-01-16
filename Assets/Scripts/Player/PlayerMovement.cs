@@ -7,6 +7,7 @@ namespace Assets.Scripts.Player
     {
         // Other components that are attached to this game object
         public Light headlamp;
+        public Light headlampHalo;
         public new Transform camera;
         [System.NonSerialized] public Animator animator;
         [System.NonSerialized] public PlayerInput playerInput;
@@ -115,6 +116,11 @@ namespace Assets.Scripts.Player
         void OnHeadlamp(InputValue value)
         {
             headlamp.enabled = !headlamp.enabled;
+        }
+        
+        void OnHeadlampHalo(InputValue value)
+        {
+            headlampHalo.enabled = !headlampHalo.enabled;
         }
     }
 }

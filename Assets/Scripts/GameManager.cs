@@ -1,4 +1,5 @@
 using Assets.Scripts.Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
@@ -15,6 +16,10 @@ public class GameManager : MonoBehaviour
     
     public Toggle cameraYAxisInversionToggle;
     public CinemachineFreeLook cinemachineFreeLook;
+    
+    public PlayerStats playerStats;
+    private TextMeshProUGUI _playTime;
+    private TextMeshProUGUI _deaths;
 
     private void Start()
     {
@@ -23,6 +28,12 @@ public class GameManager : MonoBehaviour
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
+
+        //Play explore music
+        AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.exploreMusic);
+
+        _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
+        _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -48,6 +59,10 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        
+        // Update playtime and deaths in pause menu
+        _playTime.text = "Playtime: " + playerStats.ReturnTime();
+        _deaths.text = "Deaths: " + playerStats.deathCount;
     }
 
     public void ResumeGame()
