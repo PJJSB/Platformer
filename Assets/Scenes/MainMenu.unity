@@ -5015,7 +5015,7 @@ GameObject:
   - component: {fileID: 277945584}
   - component: {fileID: 277945585}
   m_Layer: 5
-  m_Name: btn_NewGame
+  m_Name: btn_StartGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6716,7 +6716,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'New Game
+  m_text: 'Start Game
 
 '
   m_isRightToLeft: 0
