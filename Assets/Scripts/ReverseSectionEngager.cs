@@ -8,9 +8,15 @@ public class ReverseSectionEngager : MonoBehaviour
         if (other.name == "Character")
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
+           
+            //Make sure the track doesnt keep restarting when the player hits this hidden wall
+            if (player.isReversing != true)
+            {
+                AudioManager.GetInstance().StopMusic();
+                AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.reversalMusic);
+            }
+            
             player.isReversing = true;
-            AudioManager.GetInstance().StopMusic();
-            AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.reversalMusic);
         }
     }
 }
