@@ -16,33 +16,44 @@ public class FallingPlatform : MonoBehaviour
     /// </summary>
     public float Delay = 1.0f;
 
-    private float timeOnPlatform = 0f;
+    private float timeOnPlatform;
+    private float startingHeight;
+
+    private Vector3 startingFallAccel;
+    private Vector3 startingFallDirection;
+
     private bool isGoingUp = false;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.name == "Character")
-        {
-            Debug.Log(":)");
-        }
+        startingHeight = FallingObject.transform.position.y;
+        startingFallAccel = FallAccel;
+        startingFallDirection = FallDirection;
     }
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log("stay");
+        // Delay period before falling
         if (timeOnPlatform < Delay)
         {
             timeOnPlatform += Time.deltaTime;
         }
         else
         {
-            //Debug.Log(timeOnPlatform.ToString());
-            Fall();
+            // Lets the platform drop 
+            FallDirection += FallAccel * Time.deltaTime;
+            FallingObject.transform.position += FallDirection * Time.deltaTime;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("up you go");
+        FallDirection = startingFallDirection;
+        FallAccel = startingFallAccel;
+
+        timeOnPlatform = 0;
+
         isGoingUp = true;
     }
 
@@ -50,13 +61,27 @@ public class FallingPlatform : MonoBehaviour
     {
         if (isGoingUp)
         {
-
+            if (timeOnPlatform < Delay)
+            {
+                timeOnPlatform += Time.deltaTime;
+            }
+            else
+            {
+                if (FallingObject.transform.position.y <= startingHeight)
+                {
+                    // Raises the platform up to its original height
+                    FallDirection += FallAccel * Time.deltaTime;
+                    FallingObject.transform.position -= FallDirection * Time.deltaTime;
+                }
+                else
+                {
+                    // The endpoint of all of this code, here every variable that got changed along the way is reset and ready for the next collision
+                    FallDirection = startingFallDirection;
+                    FallAccel = startingFallAccel;
+                    timeOnPlatform = 0;
+                    isGoingUp = false;
+                }
+            }
         }
-    }
-
-    private void Fall()
-    {
-        FallDirection += FallAccel * Time.deltaTime;
-        FallingObject.transform.position += FallDirection * Time.deltaTime;
     }
 }
