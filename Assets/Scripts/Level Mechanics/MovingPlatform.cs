@@ -4,26 +4,43 @@ public class MovingPlatform : MonoBehaviour
 {
     public GameObject PlatformObject;
     public GameObject CollisionBox;
-    
-    public GameObject[] WayPoints = new GameObject[2];
-    public int WayPointIndex = 0;
+
+    private Vector3 startingLocation;
+
+    /// <summary>
+    /// The delay used for both the time it take to fall and raise the platform
+    /// </summary>
+    public float Delay = 1.0f;
+
+    private float timeOnPlatform;
+
+    public GameObject WayPoint;
     public float MinDistance = 0.05f;
     public float MoveSpeed = 5f;
 
     private bool playerCollision = false;
 
+    private Vector3 playerPosition;
+
+    private void Start()
+    {
+        startingLocation = PlatformObject.transform.position;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "character")
+        if (other.name == "Character")
         {
-            playerCollision = true;
+            playerPosition = other.transform.position;
+            playerCollision = true; 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name == "character")
+        if (other.name == "Character")
         {
+            timeOnPlatform = 0;
             playerCollision = false;
         }
     }
@@ -32,22 +49,44 @@ public class MovingPlatform : MonoBehaviour
     {
         if (playerCollision)
         {
-            Debug.Log("on it");
-            Vector3 direction = WayPoints[WayPointIndex].transform.position - PlatformObject.transform.position;
-
-            if (direction.magnitude < MinDistance)
+            // Small delay before the platform starts moving
+            if (timeOnPlatform < Delay)
             {
-                WayPointIndex++;
-
-                if (WayPointIndex == WayPoints.Length)
-                {
-                    WayPointIndex = 0;
-                }
+                timeOnPlatform += Time.deltaTime;
             }
             else
             {
-                PlatformObject.transform.position += MoveSpeed * Time.deltaTime * direction.normalized;
+               //doe hier iets met de player position
+                MovementTick(WayPoint.transform.position - PlatformObject.transform.position);
             }
+        }
+        else
+        {
+            if (startingLocation == PlatformObject.transform.position)
+            {
+                // Resets every variables that got changed for further usage
+                timeOnPlatform = 0;
+            }
+            else
+            {
+                if (timeOnPlatform < Delay)
+                {
+                    timeOnPlatform += Time.deltaTime;
+                }
+                else
+                {
+                    // Moves the platform back to its starting positions back to its starting position
+                    MovementTick(startingLocation - PlatformObject.transform.position);
+                }
+            }
+        }
+    }
+
+    private void MovementTick(Vector3 direction)
+    {
+        if (direction.magnitude > MinDistance)
+        {
+            PlatformObject.transform.position += MoveSpeed * Time.deltaTime * direction.normalized;
         }
     }
 }
