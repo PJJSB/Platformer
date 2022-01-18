@@ -2,26 +2,53 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
-    public GameObject PlatformObject;
+    /// <summary>
+    /// This object checks whether the player is on top of the platform which will fall
+    /// </summary>
+    public GameObject CollisionBox;
+    public GameObject FallingObject;
 
-    public bool isActive = true;
-    public Vector3 fallAccel = new Vector3(0, -1, 0);
-    public Vector3 fallDirection = new Vector3(0, 0, 0);
-    public float fallDelay = 5.0f;
+    public Vector3 FallAccel = new Vector3(0, -1, 0);
+    public Vector3 FallDirection = new Vector3(0, 0, 0);
+    public float fallDelay = 2.0f;
 
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (isActive)
+        if (other.name == "Character")
         {
-            if (fallDelay > 0)
-            {
-                fallDelay -= Time.deltaTime;
-            }
-            else
-            {
-                fallDirection += fallAccel * Time.deltaTime;
-                PlatformObject.transform.position += fallDirection * Time.deltaTime;
-            }
+            Debug.Log(":)");
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (fallDelay > 0)
+        {
+            Debug.Log(fallDelay.ToString());
+            fallDelay -= Time.deltaTime;
+        }
+        else
+        {
+            Fall();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        fallDelay = 2.0f;
+        Debug.Log("exit");
+    }
+
+    private void Fall()
+    {
+        if (fallDelay > 0)
+        {
+            fallDelay -= Time.deltaTime;
+        }
+        else
+        {
+            FallDirection += FallAccel * Time.deltaTime;
+            FallingObject.transform.position += FallDirection * Time.deltaTime;
         }
     }
 }
