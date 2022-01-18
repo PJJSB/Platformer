@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746519988209021599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 1}
+  m_LocalPosition: {x: 4.9, y: -1.006, z: 0}
+  m_LocalScale: {x: 10, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4687949894584782987}
   m_RootOrder: 0
@@ -314,9 +314,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlatformObject: {fileID: 4687949894584782977}
   CollisionObject: {fileID: 746519988209021599}
-  active: 1
-  rotationSpeed: 20
-  RotationVector: {x: 0, y: 0, z: 0}
+  MovementSpeed: 20
+  WidthLimit: 10
+  Delay: 1.5
 --- !u!65 &3396326543090470203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -358,7 +358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4687949894584782977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -547.8, y: 1.1074829, z: 230.48}
+  m_LocalPosition: {x: -549, y: 1.1074829, z: 230.48}
   m_LocalScale: {x: 0.25, y: 4, z: 1}
   m_Children:
   - {fileID: 1109229957561974505}
