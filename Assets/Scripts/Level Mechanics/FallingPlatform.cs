@@ -60,8 +60,6 @@ public class FallingPlatform : MonoBehaviour
     {
         if (isGoingUp)
         {
-            //vgm werkt dit nog niet
-            Debug.Log(timeOnPlatform.ToString());
             if (timeOnPlatform < Delay)
             {
                 timeOnPlatform += Time.deltaTime;
