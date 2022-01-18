@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DeathZoneScript : MonoBehaviour
 {
+    public GameManager gameManager;
     public GameObject respawnAnchor;
     public GameObject respawnAnchorReturn;
 
@@ -11,7 +12,6 @@ public class DeathZoneScript : MonoBehaviour
         if (other.name == "Character")
         {
             CharacterController controller = other.GetComponent<CharacterController>();
-            PlayerMovement player = other.GetComponent<PlayerMovement>();
 
             AudioManager.GetInstance().PlaySound(AudioManager.SoundType.death);
 
@@ -19,13 +19,15 @@ public class DeathZoneScript : MonoBehaviour
             controller.enabled = false;
 
             // Which side of the room the player will respawn at is based on how the player is traversing the level (front -> back or back -> front) at that point
-            if (!player.isReversing)
+            if (!gameManager.isReversing)
             {
                 other.transform.position = respawnAnchor.transform.position;
             }
             else
             {
                 other.transform.position = respawnAnchorReturn.transform.position;
+                // Reset the reversal when a player dies during the reversal
+                GameManager.GetInstance().ResetReversal();
             }
             
             controller.enabled = true;

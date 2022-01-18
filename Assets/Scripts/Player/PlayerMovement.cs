@@ -47,6 +47,11 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            if (GameManager.isPaused)
+            {
+                return;
+            }
+
             // Get movement input for walking around
             Vector2 horizontalMovement = playerInput.actions["Move"].ReadValue<Vector2>();
             movementInput = new Vector3(horizontalMovement.x, 0, horizontalMovement.y);

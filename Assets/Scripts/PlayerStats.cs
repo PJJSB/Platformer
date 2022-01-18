@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
-{
-    public GameManager gameManager;
-    
+{    
     public int deathCount = 0;
     public float playTime; // Played time in seconds
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.isPaused)
+        if (!GameManager.isPaused)
         {
             playTime += Time.deltaTime;
         }
