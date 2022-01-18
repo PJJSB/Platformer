@@ -10,7 +10,14 @@ public class FallingPlatform : MonoBehaviour
 
     public Vector3 FallAccel = new Vector3(0, -1, 0);
     public Vector3 FallDirection = new Vector3(0, 0, 0);
-    public float fallDelay = 2.0f;
+    
+    /// <summary>
+    /// The delay used for both the time it take to fall and raise the platform
+    /// </summary>
+    public float Delay = 1.0f;
+
+    private float timeOnPlatform = 0f;
+    private bool isGoingUp = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,33 +29,34 @@ public class FallingPlatform : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (fallDelay > 0)
+        if (timeOnPlatform < Delay)
         {
-            Debug.Log(fallDelay.ToString());
-            fallDelay -= Time.deltaTime;
+            timeOnPlatform += Time.deltaTime;
         }
         else
         {
+            //Debug.Log(timeOnPlatform.ToString());
             Fall();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        fallDelay = 2.0f;
-        Debug.Log("exit");
+        Debug.Log("up you go");
+        isGoingUp = true;
+    }
+
+    private void Update()
+    {
+        if (isGoingUp)
+        {
+
+        }
     }
 
     private void Fall()
     {
-        if (fallDelay > 0)
-        {
-            fallDelay -= Time.deltaTime;
-        }
-        else
-        {
-            FallDirection += FallAccel * Time.deltaTime;
-            FallingObject.transform.position += FallDirection * Time.deltaTime;
-        }
+        FallDirection += FallAccel * Time.deltaTime;
+        FallingObject.transform.position += FallDirection * Time.deltaTime;
     }
 }
