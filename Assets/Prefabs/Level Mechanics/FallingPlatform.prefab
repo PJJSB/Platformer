@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 142787045932659896}
   - component: {fileID: 142787045932659897}
   - component: {fileID: 142787045932659898}
-  - component: {fileID: 142787045932659900}
   - component: {fileID: 7205542501910482372}
   m_Layer: 0
   m_Name: FallingPlatform
@@ -301,23 +300,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142787045932659901}
   m_Mesh: {fileID: 0}
---- !u!114 &142787045932659900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142787045932659901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7bdabb66312e75488ed3de56d9b7c8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionBox: {fileID: 5612212795886088554}
-  FallingObject: {fileID: 142787045932659901}
-  FallAccel: {x: 0, y: -1, z: 0}
-  FallDirection: {x: 0, y: 0, z: 0}
-  fallDelay: 5
 --- !u!65 &7205542501910482372
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -647,7 +629,7 @@ MonoBehaviour:
   FallingObject: {fileID: 142787045932659901}
   FallAccel: {x: 0, y: -1, z: 0}
   FallDirection: {x: 0, y: 0, z: 0}
-  fallDelay: 5
+  Delay: 1
 --- !u!65 &3946928333631157814
 BoxCollider:
   m_ObjectHideFlags: 0

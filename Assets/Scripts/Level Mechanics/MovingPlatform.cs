@@ -3,25 +3,42 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     public GameObject PlatformObject;
-
-    public bool active = false;
+    public GameObject CollisionBox;
+    
     public GameObject[] WayPoints = new GameObject[2];
     public int WayPointIndex = 0;
-    public float MinDistance = .05f;
+    public float MinDistance = 0.05f;
     public float MoveSpeed = 5f;
 
-    void Start()
+    private bool playerCollision = false;
+
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.name == "character")
+        {
+            playerCollision = true;
+        }
     }
 
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        if (active)
+        if (other.name == "character")
         {
+            playerCollision = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (playerCollision)
+        {
+            Debug.Log("on it");
             Vector3 direction = WayPoints[WayPointIndex].transform.position - PlatformObject.transform.position;
+
             if (direction.magnitude < MinDistance)
             {
                 WayPointIndex++;
+
                 if (WayPointIndex == WayPoints.Length)
                 {
                     WayPointIndex = 0;
@@ -32,10 +49,5 @@ public class MovingPlatform : MonoBehaviour
                 PlatformObject.transform.position += MoveSpeed * Time.deltaTime * direction.normalized;
             }
         }
-    }
-
-    public void ToggleMoving()
-    {
-        active = !active;
     }
 }

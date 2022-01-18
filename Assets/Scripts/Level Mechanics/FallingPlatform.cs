@@ -33,7 +33,6 @@ public class FallingPlatform : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("stay");
         // Delay period before falling
         if (timeOnPlatform < Delay)
         {
