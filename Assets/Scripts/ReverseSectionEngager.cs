@@ -65,6 +65,7 @@ public class ReverseSectionEngager : MonoBehaviour
 
     public void ResetReversal()
     {
+        firstLavaWallReachedEnd = false;
         firstLavaWall.transform.position = firstLavaDefaultPos;
         secondLavaWall.transform.position = secondLavaDefaultPos;
     }
