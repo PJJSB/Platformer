@@ -30,7 +30,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            other.transform.position += new Vector3(10,0,10);
+            other.transform.SetParent(transform);
             playerCollision = true; 
         }
     }
@@ -39,6 +39,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.name == "Character")
         {
+            other.transform.parent = null;
             timeOnPlatform = 0;
             playerCollision = false;
         }
@@ -55,7 +56,7 @@ public class MovingPlatform : MonoBehaviour
             }
             else
             {
-               //doe hier iets met de player position
+                
                 MovementTick(WayPoint.transform.position - PlatformObject.transform.position);
             }
         }
@@ -86,6 +87,7 @@ public class MovingPlatform : MonoBehaviour
         if (direction.magnitude > MinDistance)
         {
             PlatformObject.transform.position += MoveSpeed * Time.deltaTime * direction.normalized;
+
         }
     }
 }
