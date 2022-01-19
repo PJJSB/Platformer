@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public static bool isPaused;
     public bool isReversing;
+    public bool isRespawning;
     
     public GameObject hubRespawnAnchor;
     public PlayerMovement player;
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (player.playerInput.actions["Pause"].triggered)
+        if (player.playerInput.actions["Pause"].triggered && !isRespawning)
         {
             if (isPaused)
             {

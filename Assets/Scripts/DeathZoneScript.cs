@@ -22,7 +22,7 @@ public class DeathZoneScript : MonoBehaviour
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.death);
 
         deathTransition.SetBool("hasDied", true);
-
+        gameManager.isRespawning = true;
         // Pause game to prevent player from walking
         GameManager.isPaused = true;
 
@@ -51,6 +51,7 @@ public class DeathZoneScript : MonoBehaviour
         other.GetComponent<PlayerStats>().deathCount++;
 
         deathTransition.SetBool("hasDied", false);
+        gameManager.isRespawning = false;
         GameManager.isPaused = false;
     }
 
