@@ -8,18 +8,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Death Zone Black
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 430edc73796b341459493bbabea7441d, type: 3}
   m_ShaderKeywords: _ENVIRONMENTREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_1cc042da2499492f84cdde2ab895d8a7:
+        m_Texture: {fileID: 2800000, guid: cea5c8515c32f374eb3bbde91ecb3eb3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_6383cccdb5374211b5c34cba187086e8:
+        m_Texture: {fileID: 2800000, guid: e2030215da6d46d4b83694e1fd04a328, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -77,6 +84,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_19512bf1d23b406784f16575c9cf84b3: 50
+    - Vector1_25f7232604ab4dee845b2032d11fa2fb: 0.5
+    - Vector1_3711e6f46b2446da9841b8524657e698: 2
+    - Vector1_55a0947d84654213bbb9b16ec6dde889: 6
+    - Vector1_5602562c1663406ba4671e5b050d17e3: 0.5
+    - Vector1_674039fbb8ab4b48be6d24d8e49fba4c: 0
+    - Vector1_6df9cad68be44beda7e7052de331756e: 0
+    - Vector1_bc6a3cbf83da49c49c1b943a53fec880: 0.5
+    - Vector1_c3983b4cac7b4ab2956f77cd59cc0d16: 1.5
+    - Vector1_dd5a75708b1d4cf99b87c727f41f2b19: 0.4
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -106,6 +123,15 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_639006fcec0a45c1af2c0cd80124a2ab: {r: 0.8490566, g: 0.2030711, b: 0.052064814, a: 1}
+    - Color_b1578f712e3a4ec78790a32514d10996: {r: 0.8490566, g: 0.0992744, b: 0.07609467, a: 1}
+    - Vector2_160fa11f851d494199b0434228323c2f: {r: 0, g: 0.005, b: 0, a: 0}
+    - Vector2_2881c020c0be45879eeb65556ee877d4: {r: 0, g: 0.001, b: 0, a: 0}
+    - Vector2_56a9bb7c351a484bb778c5a00a1dd7c3: {r: 0, g: 0.3, b: 0, a: 0}
+    - Vector2_5b5bdf9d754a4c4cbe2293f0ab550ddc: {r: -0.3, g: 12, b: 0, a: 0}
+    - Vector2_758e0c4cb19a4d50bb1892f286a01f25: {r: 0, g: 0.01, b: 0, a: 0}
+    - Vector2_c12cadf8183a44fb9359ee071db0ba68: {r: -0.01, g: 0.05, b: 0, a: 0}
+    - Vector2_f13c699d5b57433fb056959abbbf84c2: {r: 1, g: 3, b: 0, a: 0}
     - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
