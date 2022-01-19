@@ -23,6 +23,9 @@ public class DeathZoneScript : MonoBehaviour
 
         deathTransition.SetBool("hasDied", true);
 
+        // Pause game to prevent player from walking
+        GameManager.isPaused = true;
+
         yield return new WaitForSeconds(1);
         
         CharacterController controller = other.GetComponent<CharacterController>();
@@ -48,6 +51,7 @@ public class DeathZoneScript : MonoBehaviour
         other.GetComponent<PlayerStats>().deathCount++;
 
         deathTransition.SetBool("hasDied", false);
+        GameManager.isPaused = false;
     }
 
 }
