@@ -7,19 +7,44 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
+    public ReverseSectionEngager reverseSectionEngager;
+
     public SceneTransition sceneTransition;
     public GameObject pauseMenu;
-    public bool isPaused;
+    public static bool isPaused;
+    public bool isReversing;
+    public bool isRespawning;
     
     public GameObject hubRespawnAnchor;
     public PlayerMovement player;
     
     public Toggle cameraYAxisInversionToggle;
     public CinemachineFreeLook cinemachineFreeLook;
+    public GameObject mainCamera;
+    private CinemachineBrain cinemachineBrain;
     
     public PlayerStats playerStats;
     private TextMeshProUGUI _playTime;
     private TextMeshProUGUI _deaths;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public static GameManager GetInstance()
+    {
+        return instance;
+    }
 
     private void Start()
     {
@@ -34,11 +59,13 @@ public class GameManager : MonoBehaviour
 
         _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
         _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
+
+        cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
     }
 
     private void Update()
     {
-        if (player.playerInput.actions["Pause"].triggered)
+        if (player.playerInput.actions["Pause"].triggered && !isRespawning)
         {
             if (isPaused)
             {
@@ -51,8 +78,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetReversal()
+    {
+        reverseSectionEngager.ResetReversal();
+    }
+
     public void PauseGame()
     {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
+
         //Show cursor
         Cursor.lockState = CursorLockMode.None;
 
@@ -67,6 +101,8 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
+
         cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
         
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
@@ -104,9 +140,13 @@ public class GameManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
 
+        pauseMenu?.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
+
         StartCoroutine(sceneTransition.LoadScene(0));
     }
 }
