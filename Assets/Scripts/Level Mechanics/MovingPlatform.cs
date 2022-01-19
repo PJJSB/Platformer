@@ -20,6 +20,7 @@ public class MovingPlatform : MonoBehaviour
 
     private bool playerCollision = false;
 
+    private CharacterController playerController;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            other.transform.SetParent(transform);
+            playerController = other.GetComponent<CharacterController>();
             playerCollision = true; 
         }
     }
@@ -39,7 +40,6 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            other.transform.parent = null;
             timeOnPlatform = 0;
             playerCollision = false;
         }
@@ -57,7 +57,14 @@ public class MovingPlatform : MonoBehaviour
             else
             {
                 
-                MovementTick(WayPoint.transform.position - PlatformObject.transform.position);
+                Vector3 direction = WayPoint.transform.position - PlatformObject.transform.position;
+                
+                if (direction.magnitude > MinDistance)
+                {
+                    playerController.Move(MoveSpeed * Time.deltaTime * direction.normalized);
+                }
+
+                MovementTick(direction);
             }
         }
         else
@@ -87,7 +94,6 @@ public class MovingPlatform : MonoBehaviour
         if (direction.magnitude > MinDistance)
         {
             PlatformObject.transform.position += MoveSpeed * Time.deltaTime * direction.normalized;
-
         }
     }
 }
