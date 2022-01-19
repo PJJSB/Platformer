@@ -139,9 +139,13 @@ public class GameManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
 
+        pauseMenu?.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
+
         StartCoroutine(sceneTransition.LoadScene(0));
     }
 }
