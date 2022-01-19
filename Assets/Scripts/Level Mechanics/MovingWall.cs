@@ -20,20 +20,33 @@ public class MovingWall : MonoBehaviour
         hasExtended = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        timeOnPlatform = 0;
+    }
+
     private void OnTriggerStay(Collider other)
     {
-        // Delay period before extending
-        if (timeOnPlatform < Delay)
+        if (!hasExtended)
         {
-            timeOnPlatform += Time.deltaTime;
-        }
-        else
-        {
-            if (PlatformObject.transform.localScale.x < WidthLimit)
+            // Delay period before extending
+            if (timeOnPlatform < Delay)
             {
-                // Lets the platform extend 
-                PlatformObject.transform.localScale += new Vector3(MovementSpeed, 0, 0) * Time.deltaTime;
-                CollisionObject.transform.localPosition -= new Vector3(MovementSpeed, 0, 0) * Time.deltaTime;
+                timeOnPlatform += Time.deltaTime;
+            }
+            else
+            {
+                if (PlatformObject.transform.localScale.x < WidthLimit)
+                {
+                    // Lets the platform extend 
+                    PlatformObject.transform.localScale += new Vector3(MovementSpeed, 0, 0) * Time.deltaTime;
+                    CollisionObject.transform.localPosition -= new Vector3(MovementSpeed * 1.5f, 0, 0) * Time.deltaTime;
+                    CollisionObject.transform.localScale -= new Vector3(MovementSpeed, 0, 0) * Time.deltaTime;
+                }
+                else
+                {
+                    hasExtended = true;
+                }
             }
         }
     }
@@ -41,7 +54,6 @@ public class MovingWall : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         timeOnPlatform = 0;
-        hasExtended = true;
     }
 
     void Update()
@@ -57,8 +69,13 @@ public class MovingWall : MonoBehaviour
             {
                 // Lets the platform shrink back down until its back in its original place
                 PlatformObject.transform.localScale -= new Vector3(MovementSpeed / 10, 0, 0) * Time.deltaTime;
+                CollisionObject.transform.localPosition += new Vector3(MovementSpeed / 10 * 1.5f, 0, 0) * Time.deltaTime;
                 CollisionObject.transform.localScale += new Vector3(MovementSpeed / 10, 0, 0) * Time.deltaTime;
             }
+        }
+        else if (PlatformObject.transform.localScale.x < startingWidth)
+        {
+            hasExtended = false;
         }
     }
 }

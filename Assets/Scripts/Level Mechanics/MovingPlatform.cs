@@ -20,7 +20,6 @@ public class MovingPlatform : MonoBehaviour
 
     private bool playerCollision = false;
 
-    private Vector3 playerPosition;
 
     private void Start()
     {
@@ -31,7 +30,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            playerPosition = other.transform.position;
+            other.transform.position += new Vector3(10,0,10);
             playerCollision = true; 
         }
     }
