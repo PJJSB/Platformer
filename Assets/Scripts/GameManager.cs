@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class GameManager : MonoBehaviour
     private CinemachineBrain cinemachineBrain;
     
     public PlayerStats playerStats;
-    private TextMeshProUGUI _playTime;
-    private TextMeshProUGUI _deaths;
+    [NonSerialized] public TextMeshProUGUI playTime;
+    [NonSerialized] public TextMeshProUGUI deaths;
 
     private void Awake()
     {
@@ -58,8 +59,8 @@ public class GameManager : MonoBehaviour
         //Play explore music
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.exploreMusic);
 
-        _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
-        _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
+        playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
+        deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
 
         cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
     }
@@ -96,8 +97,8 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         
         // Update playtime and deaths in pause menu
-        _playTime.text = "Playtime: " + playerStats.ReturnTime();
-        _deaths.text = "Deaths: " + playerStats.deathCount;
+        playTime.text = "Playtime: " + playerStats.ReturnTime();
+        deaths.text = "Deaths: " + playerStats.deathCount;
     }
 
     public void ResumeGame()
@@ -114,29 +115,6 @@ public class GameManager : MonoBehaviour
         pauseMenu?.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-    }
-
-    public void ReturnToHub()
-    {
-        //Hide cursor and lock it
-        Cursor.lockState = CursorLockMode.Locked;
-
-        pauseMenu?.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-
-        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
-
-        var controller = player.controller;
-
-        // The jank is real, controller needs to be disabled to be able to pass through objects to a respawn anchor
-        controller.enabled = false;
-
-        var playerTransform = player.transform;
-        playerTransform.position = hubRespawnAnchor.transform.position;
-        playerTransform.eulerAngles = new Vector3(0, 0, 0);
-
-        controller.enabled = true;
     }
 
     public void GoToMainMenu()
