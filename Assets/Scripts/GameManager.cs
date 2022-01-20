@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public SceneTransition sceneTransition;
     public GameObject pauseMenu;
     public static bool isPaused;
+    public static bool isEnding;
     public bool isReversing;
     public bool isRespawning;
     
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (player.playerInput.actions["Pause"].triggered && !isRespawning)
+        if (player.playerInput.actions["Pause"].triggered && !isRespawning && !isEnding)
         {
             if (isPaused)
             {
@@ -146,6 +147,17 @@ public class GameManager : MonoBehaviour
         pauseMenu?.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        StartCoroutine(sceneTransition.LoadScene(0));
+    }
+
+    public void GoToMainMenuEnd()
+    {
+        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
+        isEnding = false;
+        isPaused = false;
+
+        Time.timeScale = 1f;
 
         StartCoroutine(sceneTransition.LoadScene(0));
     }
