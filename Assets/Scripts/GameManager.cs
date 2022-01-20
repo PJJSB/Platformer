@@ -19,8 +19,9 @@ public class GameManager : MonoBehaviour
     public bool isReversing;
     public bool isRespawning;
     
-    public GameObject hubRespawnAnchor;
     public PlayerMovement player;
+
+    public GameObject controlsIntroductions;
     
     public Toggle cameraYAxisInversionToggle;
     public CinemachineFreeLook cinemachineFreeLook;
@@ -96,6 +97,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
         
+        controlsIntroductions.SetActive(false);
+        
         // Update playtime and deaths in pause menu
         playTime.text = "Playtime: " + playerStats.ReturnTime();
         deaths.text = "Deaths: " + playerStats.deathCount;
@@ -115,6 +118,8 @@ public class GameManager : MonoBehaviour
         pauseMenu?.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        
+        controlsIntroductions.SetActive(true);
     }
 
     public void GoToMainMenu()
