@@ -14,6 +14,9 @@ public class MainMenu : MonoBehaviour
     {
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnStart);
 
+        //Hide cursor and lock it
+        Cursor.lockState = CursorLockMode.Locked;
+
         //Load the next scene in line
         StartCoroutine(sceneTransition.LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
         AudioManager.GetInstance().StopMusic();
