@@ -50,6 +50,7 @@ namespace Assets.Scripts.Player.States
                 player.speed.z = horizontalSpeed.y;
             }
 
+            // Enable gravity again after the actual "dash" has finished
             if (dashingTime > dashingTimeMax)
             {
                 player.acceleration.y = -player.gravityStrength;
@@ -60,6 +61,12 @@ namespace Assets.Scripts.Player.States
             // If player lands on floor (check is at the end to prevent getting stuck in code between pre-jump states and this state)
             if (player.controller.isGrounded)
             {
+                // If player lands before the dash was finished, enable gravity again
+                if (dashingTime < dashingTimeMax)
+                {
+                    player.acceleration.y = -player.gravityStrength;
+                }
+
                 // Play impact sound
                 AudioManager.GetInstance().PlaySound(AudioManager.SoundType.impact);
 
