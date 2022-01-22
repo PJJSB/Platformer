@@ -47,12 +47,6 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            //if (GameManager.isEnding && state != idleState)
-            //{
-            //    Debug.Log("")
-            //    SwitchState(idleState);
-            //}
-
             if (GameManager.isPaused)
             {
                 return;

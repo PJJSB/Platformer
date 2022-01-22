@@ -9,7 +9,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this.gameObject);
         }
     }
 }
