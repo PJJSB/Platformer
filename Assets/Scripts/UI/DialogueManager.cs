@@ -8,9 +8,12 @@ public class DialogueManager : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI finalDeaths;
+    public TextMeshProUGUI finalTime;
     public Animator dialogueAnim;
     public Button continueButton;
     public GameManager gameManager;
+    public GameObject endTrigger;
 
     private Queue<string> sentences;
     private GameObject triggerBox;
@@ -21,12 +24,25 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 0f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        endTrigger.SetActive(false);
     }
 
     // Gets called when triggered by collision
     public void StartDialogue(Dialogue dialogue, GameObject triggerBox)
     {
+        if (gameManager.isReversing)
+        {
+            endTrigger.SetActive(true);
+        }
+
         this.triggerBox = triggerBox;
+
+        if (triggerBox.name == "EndingTrigger")
+        {
+            AudioManager.GetInstance().StopMusic();
+            AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.introMusic);
+        }
+
         GameManager.isInterrupted = true;
 
         gameManager.Pause();
@@ -72,6 +88,12 @@ public class DialogueManager : MonoBehaviour
 
         if (sentences.Count == 0)
         {
+            if (triggerBox.name == "EndingTrigger")
+            {
+                EndScreenDialogue();
+                return;
+            }
+
             StartCoroutine(EndDialogue());
             return;
         }
@@ -102,7 +124,7 @@ public class DialogueManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(2);
 
-        dialogueAnim.SetBool("dialogueReset", true);
+        dialogueAnim.SetTrigger("dialogueReset");
         GameManager.isInterrupted = false;
         continueButton.interactable = true;
         gameManager.Resume();
@@ -111,5 +133,17 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         triggerBox.SetActive(false);
+    }
+
+    private void EndScreenDialogue()
+    {
+        GameManager.isInterrupted = true;
+
+        gameManager.Pause();
+
+        finalDeaths.text = "Deaths: " + gameManager.playerStats.deathCount;
+        finalTime.text = "Playtime: " + gameManager.playerStats.ReturnTime();
+
+        dialogueAnim.SetTrigger("dialogueEnd");
     }
 }
