@@ -107,12 +107,12 @@ public class DialogueManager : MonoBehaviour
     {
         string sentence = sentences.Dequeue();
         dialogueAnim.SetBool("dialogueNext", true);
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         // Set the text in the UI element
         dialogueText.text = sentence;
 
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(0.5f);
         dialogueAnim.SetBool("dialogueNext", false);
         continueButton.interactable = true;
     }
@@ -120,19 +120,21 @@ public class DialogueManager : MonoBehaviour
     // Gets called when there are no more sentences left
     private IEnumerator EndDialogue()
     {
-        dialogueAnim.SetBool("dialogueActive", false);
+        triggerBox.GetComponent<BoxCollider>().enabled = false;
 
-        yield return new WaitForSecondsRealtime(2);
+        dialogueAnim.SetBool("dialogueActive", false);
+        
+        GameManager.isInterrupted = false;
+        
+        gameManager.Resume();
+
+        yield return new WaitForSecondsRealtime(1);
 
         dialogueAnim.SetTrigger("dialogueReset");
-        GameManager.isInterrupted = false;
         continueButton.interactable = true;
-        gameManager.Resume();
 
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 0f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
-
-        triggerBox.GetComponent<BoxCollider>().enabled = false;
     }
 
     private void EndScreenDialogue()
