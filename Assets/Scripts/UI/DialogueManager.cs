@@ -132,7 +132,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 0f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
-        triggerBox.SetActive(false);
+        triggerBox.GetComponent<BoxCollider>().enabled = false;
     }
 
     private void EndScreenDialogue()
