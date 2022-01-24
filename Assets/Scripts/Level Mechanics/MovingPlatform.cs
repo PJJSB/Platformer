@@ -10,7 +10,7 @@ public class MovingPlatform : MonoBehaviour
     /// <summary>
     /// The delay used for both the time it take to fall and raise the platform
     /// </summary>
-    public float Delay = 1.0f;
+    public float Delay = 1.5f;
 
     private float timeOnPlatform;
 
