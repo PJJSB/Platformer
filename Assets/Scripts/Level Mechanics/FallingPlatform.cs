@@ -25,6 +25,8 @@ public class FallingPlatform : MonoBehaviour
 
     private bool isGoingUp = false;
 
+    private Vector3 lastDirection;
+
     private void Start()
     {
         startingHeight = FallingObject.transform.position.y;
@@ -34,11 +36,6 @@ public class FallingPlatform : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Character")
-        {
-            other.transform.parent = transform;
-        }
-
         isGoingUp = false;
     }
 
@@ -55,6 +52,11 @@ public class FallingPlatform : MonoBehaviour
             FallDirection += FallAccel * Time.deltaTime;
             FallingObject.transform.position += FallDirection * Time.deltaTime;
         }
+
+        if (other.name != "Character")
+        {
+            isGoingUp = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -63,12 +65,11 @@ public class FallingPlatform : MonoBehaviour
         FallAccel = startingFallAccel;
 
         timeOnPlatform = 0;
-        other.transform.parent = null;
 
         isGoingUp = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isGoingUp)
         {
@@ -94,5 +95,16 @@ public class FallingPlatform : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        // If object somehow gets stuck
+        if (lastDirection == FallDirection && FallDirection.magnitude > 0)
+        {
+            isGoingUp = true;
+        }
+
+        lastDirection = FallDirection;
     }
 }
