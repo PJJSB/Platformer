@@ -8,12 +8,12 @@ public class ReverseSectionEngager : MonoBehaviour
     public GameObject secondLavaWall;
 
     private Vector3 firstLavaDefaultPos = new Vector3(-1000, 16, -1150);
-    private float firstLavaSpeed = 0.3f;
+    public float firstLavaSpeed = 0.3f;
     private int firstLavaEndPos = -330;
     public bool firstLavaWallReachedEnd = false;
 
     private Vector3 secondLavaDefaultPos = new Vector3(-1094, -10, -247);
-    private float secondLavaSpeed = 0.03f;
+    public float secondLavaSpeed = 0.03f;
     private int secondLavaEndPos = 15;
 
     private void Start()

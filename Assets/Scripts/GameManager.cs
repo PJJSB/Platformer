@@ -9,6 +9,10 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    enum Difficulty
+    {
+        Normal, Hard, Vincent
+    }
     public static GameManager instance;
 
     public ReverseSectionEngager reverseSectionEngager;
@@ -29,6 +33,8 @@ public class GameManager : MonoBehaviour
     public PlayerStats playerStats;
     [NonSerialized] public TextMeshProUGUI playTime;
     [NonSerialized] public TextMeshProUGUI deaths;
+
+    public Slider difficultySlider;
 
     private void Awake()
     {
@@ -126,6 +132,24 @@ public class GameManager : MonoBehaviour
         Resume();
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+    }
+    public void ChangeDifficulty()
+    {
+        switch (difficultySlider.value)
+        {
+            case 0:
+                reverseSectionEngager.firstLavaSpeed = 0.3f;
+                reverseSectionEngager.secondLavaSpeed = 0.03f;
+                break;
+            case 1:
+                reverseSectionEngager.firstLavaSpeed = 0.4f;        
+                reverseSectionEngager.secondLavaSpeed = 0.04f;
+                break;
+            case 2:
+                reverseSectionEngager.firstLavaSpeed = 0.5f;
+                reverseSectionEngager.secondLavaSpeed = 0.05f;
+                break;
+        }
     }
 
     public void GoToMainMenu()
