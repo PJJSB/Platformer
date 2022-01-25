@@ -38,6 +38,8 @@ public class FallingPlatform : MonoBehaviour
         {
             other.transform.parent = transform;
         }
+
+        isGoingUp = false;
     }
 
     private void OnTriggerStay(Collider other)
