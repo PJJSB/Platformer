@@ -10,11 +10,11 @@ public class MovingPlatform : MonoBehaviour
     /// <summary>
     /// The delay used for both the time it take to fall and raise the platform
     /// </summary>
-    public float Delay = 1.0f;
+    public float Delay = 1.5f;
 
     private float timeOnPlatform;
 
-    public GameObject WayPoint;
+    public Vector3 WayPoint;
     public float MinDistance = 0.05f;
     public float MoveSpeed = 5f;
 
@@ -57,7 +57,7 @@ public class MovingPlatform : MonoBehaviour
             else
             {
                 
-                Vector3 direction = WayPoint.transform.position - PlatformObject.transform.position;
+                Vector3 direction = WayPoint - PlatformObject.transform.position;
                 
                 if (direction.magnitude > MinDistance)
                 {

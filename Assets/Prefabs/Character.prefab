@@ -316,13 +316,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814955039903978471}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 136.3, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.99843335, z: -0, w: -0.055954516}
+  m_LocalPosition: {x: -135.34695, y: 0, z: -657.53546}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3729218972734137005}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 186.415, z: 0}
 --- !u!137 &2750182161377351013
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -631,9 +631,10 @@ GameObject:
   - component: {fileID: 1981335109605897514}
   - component: {fileID: 1981335109605897517}
   - component: {fileID: 1981335109605897516}
+  - component: {fileID: 2015358643}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -647,7 +648,7 @@ Transform:
   m_GameObject: {fileID: 1710932560128542852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -535, y: 0.5, z: 225}
-  m_LocalScale: {x: 44.50179, y: 44.50179, z: 44.50179}
+  m_LocalScale: {x: 44.50181, y: 44.50179, z: 44.50181}
   m_Children:
   - {fileID: 3729218972734137005}
   - {fileID: 1674417755536677380}
@@ -669,7 +670,7 @@ CharacterController:
   m_Height: 0.0735
   m_Radius: 0.02
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.038, z: 0}
@@ -713,7 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headlamp: {fileID: 1981335108053409123}
-  headlampHalo: {fileID: 0}
+  headlampHalo: {fileID: 6610831617805339050}
   camera: {fileID: 0}
   movementInput: {x: 0, y: 0, z: 0}
   speed: {x: 0, y: 0, z: 0}
@@ -761,6 +762,20 @@ MonoBehaviour:
   m_DefaultActionMap: DefaultControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2015358643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710932560128542852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2b88954b4cb1041acca3f16b17c0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathCount: 0
+  playTime: 0
 --- !u!1 &1836405108594372956
 GameObject:
   m_ObjectHideFlags: 0

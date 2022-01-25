@@ -9,6 +9,7 @@ public class MovingGate : MonoBehaviour
     public float WayPoint;
     public float MinDistance = 0.05f;
     public float MoveSpeed = 5f;
+    public GameObject gateLockedTrigger;
 
     private bool playerCollision = false;
     
@@ -17,8 +18,11 @@ public class MovingGate : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            playerCollision = true; 
-
+            playerCollision = true;
+            if (gateLockedTrigger != null)
+            {
+                gateLockedTrigger.SetActive(false);
+            }
         }
     }
     

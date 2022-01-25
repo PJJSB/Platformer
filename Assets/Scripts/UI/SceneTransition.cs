@@ -9,8 +9,11 @@ public class SceneTransition : MonoBehaviour
     public IEnumerator LoadScene(int sceneIndex)
     {
         Crossfade.SetTrigger("Start");
-        yield return new WaitForSeconds(1);
+        GameManager.isInterrupted = true;
 
+        yield return new WaitForSecondsRealtime(1);
+
+        GameManager.isInterrupted = false;
         SceneManager.LoadScene(sceneIndex);
     }
 }

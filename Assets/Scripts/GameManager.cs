@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    enum Difficulty
+    {
+        Normal, Hard, Vincent
+    }
     public static GameManager instance;
 
     public ReverseSectionEngager reverseSectionEngager;
@@ -15,13 +20,10 @@ public class GameManager : MonoBehaviour
     public SceneTransition sceneTransition;
     public GameObject pauseMenu;
     public static bool isPaused;
-    public static bool isEnding;
+    public static bool isInterrupted;
     public bool isReversing;
-    public bool isRespawning;
     
     public PlayerMovement player;
-
-    public GameObject controlsIntroductions;
     
     public Toggle cameraYAxisInversionToggle;
     public CinemachineFreeLook cinemachineFreeLook;
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
     public PlayerStats playerStats;
     [NonSerialized] public TextMeshProUGUI playTime;
     [NonSerialized] public TextMeshProUGUI deaths;
+
+    public Slider difficultySlider;
 
     private void Awake()
     {
@@ -51,8 +55,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //Set pause menu to deactive as default
-        pauseMenu.SetActive(false);
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (player.playerInput.actions["Pause"].triggered && !isRespawning && !isEnding)
+        if (player.playerInput.actions["Pause"].triggered && !isInterrupted)
         {
             if (isPaused)
             {
@@ -86,19 +90,35 @@ public class GameManager : MonoBehaviour
         reverseSectionEngager.ResetReversal();
     }
 
-    public void PauseGame()
+    public void Pause()
     {
         cinemachineBrain.enabled = !cinemachineBrain.enabled;
 
         //Show cursor
         Cursor.lockState = CursorLockMode.None;
 
-        pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
-        
-        controlsIntroductions.SetActive(false);
-        
+    }
+
+    public void Resume()
+    {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
+
+        //Hide cursor and lock it
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void PauseGame()
+    {
+        Pause();
+
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 1f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
         // Update playtime and deaths in pause menu
         playTime.text = "Playtime: " + playerStats.ReturnTime();
         deaths.text = "Deaths: " + playerStats.deathCount;
@@ -106,30 +126,41 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        cinemachineBrain.enabled = !cinemachineBrain.enabled;
-
-        cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
-        
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
+        cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
 
-        //Hide cursor and lock it
-        Cursor.lockState = CursorLockMode.Locked;
-
-        pauseMenu?.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-        
-        controlsIntroductions.SetActive(true);
+        Resume();
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+    }
+    public void ChangeDifficulty()
+    {
+        switch (difficultySlider.value)
+        {
+            case 0:
+                reverseSectionEngager.firstLavaSpeed = 0.3f;
+                reverseSectionEngager.secondLavaSpeed = 0.03f;
+                break;
+            case 1:
+                reverseSectionEngager.firstLavaSpeed = 0.4f;        
+                reverseSectionEngager.secondLavaSpeed = 0.04f;
+                break;
+            case 2:
+                reverseSectionEngager.firstLavaSpeed = 0.5f;
+                reverseSectionEngager.secondLavaSpeed = 0.05f;
+                break;
+        }
     }
 
     public void GoToMainMenu()
     {
-        cinemachineBrain.enabled = !cinemachineBrain.enabled;
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
 
-        pauseMenu?.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+        Resume();
+        //Show cursor
+        Cursor.lockState = CursorLockMode.None;
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         StartCoroutine(sceneTransition.LoadScene(0));
     }
@@ -137,7 +168,7 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenuEnd()
     {
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
-        isEnding = false;
+        isInterrupted = false;
         isPaused = false;
 
         Time.timeScale = 1f;

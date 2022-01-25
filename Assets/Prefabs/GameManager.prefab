@@ -43,8 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99d4e099bf2b734db15a2ef3ad28bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reverseSectionEngager: {fileID: 0}
   sceneTransition: {fileID: 0}
   pauseMenu: {fileID: 0}
-  isPaused: 0
-  hubRespawnAnchor: {fileID: 0}
+  isReversing: 0
   player: {fileID: 0}
+  cameraYAxisInversionToggle: {fileID: 0}
+  cinemachineFreeLook: {fileID: 0}
+  mainCamera: {fileID: 0}
+  playerStats: {fileID: 0}

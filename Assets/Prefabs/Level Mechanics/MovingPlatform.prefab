@@ -328,7 +328,7 @@ MonoBehaviour:
   PlatformObject: {fileID: 2595637355322255612}
   CollisionBox: {fileID: 773852121604296709}
   Delay: 1
-  WayPoint: {fileID: 0}
+  WayPoint: {x: 0, y: 0, z: 0}
   MinDistance: 0.05
   MoveSpeed: 5
 --- !u!1 &2595637355322255612
@@ -342,8 +342,8 @@ GameObject:
   - component: {fileID: 2595637355322255609}
   - component: {fileID: 2595637355322255608}
   - component: {fileID: 2595637355322255611}
-  - component: {fileID: 2595637355322255610}
   - component: {fileID: 2866790892471574048}
+  - component: {fileID: 4081290818164961432}
   m_Layer: 0
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -360,7 +360,7 @@ Transform:
   m_GameObject: {fileID: 2595637355322255612}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -540, y: 1, z: 210}
-  m_LocalScale: {x: 2, y: 0.5, z: 2}
+  m_LocalScale: {x: 2.5, y: 1, z: 2.5}
   m_Children:
   - {fileID: 8131584321383695934}
   m_Father: {fileID: 0}
@@ -601,7 +601,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2e396b6df87a3c94e8e20e922295ec69, type: 2}
+  - {fileID: 2100000, guid: 765241d3ee772b04ea9add62563165c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -623,14 +623,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2595637355322255610
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2595637355322255612}
-  m_Mesh: {fileID: 0}
 --- !u!65 &2866790892471574048
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -644,3 +636,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 2, z: 5.399994}
   m_Center: {x: 2.5, y: 1, z: -2.699997}
+--- !u!33 &4081290818164961432
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595637355322255612}
+  m_Mesh: {fileID: 0}
