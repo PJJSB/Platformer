@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
@@ -30,6 +31,14 @@ public class FallingPlatform : MonoBehaviour
         startingFallAccel = FallAccel;
         startingFallDirection = FallDirection;
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Character")
+        {
+            other.transform.parent = transform;
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -52,11 +61,12 @@ public class FallingPlatform : MonoBehaviour
         FallAccel = startingFallAccel;
 
         timeOnPlatform = 0;
+        other.transform.parent = null;
 
         isGoingUp = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isGoingUp)
         {
