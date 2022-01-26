@@ -55,8 +55,10 @@ public class MovingPlatform : MonoBehaviour
             }
             else
             {
-                Vector3 direction = WayPoint - PlatformObject.transform.position;
+                var direction = WayPoint - PlatformObject.transform.position;
                 MovementTick(direction);
+                direction.y = 0;
+                
                 if (direction.sqrMagnitude > MinDistance * MinDistance)
                 {
                     _characterController.SimpleMove(direction.normalized * MoveSpeed);

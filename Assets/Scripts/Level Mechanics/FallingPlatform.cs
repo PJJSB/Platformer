@@ -1,4 +1,4 @@
-using System;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
@@ -24,8 +24,13 @@ public class FallingPlatform : MonoBehaviour
     private Vector3 startingFallDirection;
 
     private bool isGoingUp = false;
+    private bool isGoingDown = false;
 
     private Vector3 lastDirection;
+    private CharacterController _characterController;
+    private PlayerStats playerStats;
+    private float startingDeaths;
+    private float difference;
 
     private void Start()
     {
@@ -36,27 +41,12 @@ public class FallingPlatform : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        isGoingDown = true;
         isGoingUp = false;
-    }
+        _characterController = other.GetComponent<CharacterController>();
+        playerStats = other.GetComponent<PlayerStats>();
+        startingDeaths = other.GetComponent<PlayerStats>().deathCount;
 
-    private void OnTriggerStay(Collider other)
-    {
-        // Delay period before falling
-        if (timeOnPlatform < Delay)
-        {
-            timeOnPlatform += Time.deltaTime;
-        }
-        else
-        {
-            // Lets the platform drop 
-            FallDirection += FallAccel * Time.deltaTime;
-            FallingObject.transform.position += FallDirection * Time.deltaTime;
-        }
-
-        if (other.name != "Character")
-        {
-            isGoingUp = true;
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -65,12 +55,39 @@ public class FallingPlatform : MonoBehaviour
         FallAccel = startingFallAccel;
 
         timeOnPlatform = 0;
-
         isGoingUp = true;
+        isGoingDown = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        // Moving downwards
+        if (isGoingDown)
+        {
+            // Delay period before falling
+            if (timeOnPlatform < Delay)
+            {
+                timeOnPlatform += Time.deltaTime;
+            }
+            else
+            {
+                // Lets the platform drop 
+                FallDirection += FallAccel * Time.deltaTime;    
+                FallingObject.transform.position += FallDirection * Time.deltaTime;
+                _characterController.transform.position += FallDirection * Time.deltaTime;
+            }
+            
+            // If object somehow gets stuck
+            if ((lastDirection == FallDirection && FallDirection.magnitude > 0) || playerStats.deathCount > startingDeaths)
+            {
+                isGoingDown = false;
+                isGoingUp = true;
+            }
+
+            lastDirection = FallDirection;
+        }
+        
+        // Going up
         if (isGoingUp)
         {
             if (timeOnPlatform < Delay)
@@ -95,16 +112,5 @@ public class FallingPlatform : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        // If object somehow gets stuck
-        if (lastDirection == FallDirection && FallDirection.magnitude > 0)
-        {
-            isGoingUp = true;
-        }
-
-        lastDirection = FallDirection;
     }
 }
