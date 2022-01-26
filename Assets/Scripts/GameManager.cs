@@ -1,11 +1,11 @@
 using Assets.Scripts.Player;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
 using System;
-using System.Collections;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public TextMeshProUGUI deaths;
 
     public Slider difficultySlider;
+    
+    public Slider postExposureSlider;
+    public Volume globalVolume;
 
     private void Awake()
     {
@@ -153,6 +156,12 @@ public class GameManager : MonoBehaviour
                 reverseSectionEngager.secondLavaSpeed = 0.05f;
                 break;
         }
+    }
+    public void ChangePostExposure()
+    {
+        var colorAdjustments = globalVolume.profile.TryGet(out ColorAdjustments temp) ? temp : ScriptableObject.CreateInstance<ColorAdjustments>();
+
+        colorAdjustments.postExposure.value = postExposureSlider.value;
     }
 
     public void GoToMainMenu()
