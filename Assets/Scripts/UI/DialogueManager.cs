@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 0f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        dialoguePanel.GetComponent<CanvasGroup>().interactable = false;
         endTrigger.SetActive(false);
     }
 
@@ -50,6 +51,7 @@ public class DialogueManager : MonoBehaviour
         // Panel get activated and first animation gets played
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 1f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        dialoguePanel.GetComponent<CanvasGroup>().interactable = true;
 
         dialogueAnim.SetBool("dialogueReset", false);
         dialogueAnim.SetBool("dialogueActive", true);
@@ -135,6 +137,7 @@ public class DialogueManager : MonoBehaviour
 
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 0f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        dialoguePanel.GetComponent<CanvasGroup>().interactable = false;
     }
 
     private void EndScreenDialogue()

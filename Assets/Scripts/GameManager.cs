@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour
 
         pauseMenu.GetComponent<CanvasGroup>().alpha = 1f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = true;
 
         // Update playtime and deaths in pause menu
         playTime.text = "Playtime: " + playerStats.ReturnTime();
@@ -132,6 +134,7 @@ public class GameManager : MonoBehaviour
         Resume();
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
     }
     public void ChangeDifficulty()
     {
@@ -161,6 +164,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
 
         StartCoroutine(sceneTransition.LoadScene(0));
     }
