@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &6253391293269235245
 Transform:
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 345061925647923917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 59.5, y: 1, z: 245.9}
+  m_LocalScale: {x: 10.54, y: 1.7, z: 72.19381}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,7 +53,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ecab60a5a3b3d94b9a40b6b04d95a67, type: 2}
+  - {fileID: 2100000, guid: 7b99f0e63b762234e949ad4988d0f3be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.1756352, z: 1}
+  m_Center: {x: -4.122428e-11, y: 0.08781729, z: 0}
 --- !u!114 &-305492370252357643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +111,4 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   respawnAnchor: {fileID: 0}
   respawnAnchorReturn: {fileID: 0}
+  deathTransition: {fileID: 0}
