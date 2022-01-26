@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public Button continueButton;
     public GameManager gameManager;
     public GameObject endTrigger;
+    public GameObject sparksVFX;
 
     private Queue<string> sentences;
     private GameObject triggerBox;
@@ -26,6 +27,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         dialoguePanel.GetComponent<CanvasGroup>().interactable = false;
         endTrigger.SetActive(false);
+        sparksVFX.SetActive(false);
     }
 
     // Gets called when triggered by collision
@@ -34,6 +36,7 @@ public class DialogueManager : MonoBehaviour
         if (gameManager.isReversing)
         {
             endTrigger.SetActive(true);
+            sparksVFX.SetActive(true);
         }
 
         this.triggerBox = triggerBox;
