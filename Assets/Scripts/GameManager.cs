@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Pause();
+        player.playerInput.DeactivateInput();
 
         pauseMenu.GetComponent<CanvasGroup>().alpha = 1f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        player.playerInput.ActivateInput();
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
         cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
         
