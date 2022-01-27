@@ -10,7 +10,7 @@ public class MovingPlatform : MonoBehaviour
     /// <summary>
     /// The delay used for both the time it take to fall and raise the platform
     /// </summary>
-    public float Delay = 1.5f;
+    public float Delay = 1f;
 
     private float timeOnPlatform;
 
@@ -19,8 +19,7 @@ public class MovingPlatform : MonoBehaviour
     public float MoveSpeed = 5f;
 
     private bool playerCollision = false;
-
-    private CharacterController playerController;
+    private CharacterController _characterController;
 
     private void Start()
     {
@@ -31,7 +30,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.name == "Character")
         {
-            playerController = other.GetComponent<CharacterController>();
+            _characterController = other.GetComponent<CharacterController>();
             playerCollision = true; 
         }
     }
@@ -56,15 +55,14 @@ public class MovingPlatform : MonoBehaviour
             }
             else
             {
-                
-                Vector3 direction = WayPoint - PlatformObject.transform.position;
-                
-                if (direction.magnitude > MinDistance)
-                {
-                    playerController.Move(MoveSpeed * Time.deltaTime * direction.normalized);
-                }
-
+                var direction = WayPoint - PlatformObject.transform.position;
                 MovementTick(direction);
+                direction.y = 0;
+                
+                if (direction.sqrMagnitude > MinDistance * MinDistance)
+                {
+                    _characterController.SimpleMove(direction.normalized * MoveSpeed);
+                }
             }
         }
         else

@@ -1,11 +1,12 @@
 using Assets.Scripts.Player;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
 using System;
-using System.Collections;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public TextMeshProUGUI deaths;
 
     public Slider difficultySlider;
+    
+    public Slider postExposureSlider;
+    public Volume globalVolume;
 
     private void Awake()
     {
@@ -57,6 +61,8 @@ public class GameManager : MonoBehaviour
     {
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        pauseMenu.GetComponentInChildren<Button>().interactable = false;
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
@@ -115,9 +121,17 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Pause();
+        player.playerInput.DeactivateInput();
 
         pauseMenu.GetComponent<CanvasGroup>().alpha = 1f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = true;
+        
+        var button = pauseMenu.GetComponentInChildren<Button>();
+        button.interactable = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
+        Debug.Log("pause");
 
         // Update playtime and deaths in pause menu
         playTime.text = "Playtime: " + playerStats.ReturnTime();
@@ -126,13 +140,21 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        player.playerInput.ActivateInput();
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
         cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
-
+        
         Resume();
+        
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        var button = pauseMenu.GetComponentInChildren<Button>();
+        button.interactable = false;
+        EventSystem.current.SetSelectedGameObject(null);
+        Debug.Log("resume");
     }
+
     public void ChangeDifficulty()
     {
         switch (difficultySlider.value)
@@ -152,6 +174,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ChangePostExposure()
+    {
+        var colorAdjustments = globalVolume.profile.TryGet(out ColorAdjustments temp) ? temp : ScriptableObject.CreateInstance<ColorAdjustments>();
+
+        colorAdjustments.postExposure.value = postExposureSlider.value;
+    }
+
     public void GoToMainMenu()
     {
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
@@ -161,6 +190,8 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        pauseMenu.GetComponentInChildren<Button>().interactable = false;
 
         StartCoroutine(sceneTransition.LoadScene(0));
     }
