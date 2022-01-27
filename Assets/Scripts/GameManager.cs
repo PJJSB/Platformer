@@ -1,26 +1,68 @@
 using Assets.Scripts.Player;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Cinemachine;
 using UnityEngine.UI;
+using System;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    enum Difficulty
+    {
+        Normal, Hard, Vincent
+    }
+    public static GameManager instance;
+
+    public ReverseSectionEngager reverseSectionEngager;
+
     public SceneTransition sceneTransition;
     public GameObject pauseMenu;
-    public bool isPaused;
+    public static bool isPaused;
+    public static bool isInterrupted;
+    public bool isReversing;
     
-    public GameObject hubRespawnAnchor;
     public PlayerMovement player;
+    
+    public Toggle cameraYAxisInversionToggle;
+    public CinemachineFreeLook cinemachineFreeLook;
+    public GameObject mainCamera;
+    private CinemachineBrain cinemachineBrain;
+    
     public PlayerStats playerStats;
+    [NonSerialized] public TextMeshProUGUI playTime;
+    [NonSerialized] public TextMeshProUGUI deaths;
 
-    private TextMeshProUGUI _playTime;
-    private TextMeshProUGUI _deaths;
+    public Slider difficultySlider;
+    
+    public Slider postExposureSlider;
+    public Volume globalVolume;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public static GameManager GetInstance()
+    {
+        return instance;
+    }
 
     private void Start()
     {
-        //Set pause menu to deactive as default
-        pauseMenu.SetActive(false);
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        pauseMenu.GetComponentInChildren<Button>().interactable = false;
 
         //Hide cursor and lock it
         Cursor.lockState = CursorLockMode.Locked;
@@ -28,13 +70,15 @@ public class GameManager : MonoBehaviour
         //Play explore music
         AudioManager.GetInstance().PlayMusic(AudioManager.MusicType.exploreMusic);
 
-        _playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
-        _deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
+        playTime = pauseMenu.transform.Find("txt_Playtime").GetComponent<TextMeshProUGUI>();
+        deaths = pauseMenu.transform.Find("txt_Deaths").GetComponent<TextMeshProUGUI>();
+
+        cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
     }
 
     private void Update()
     {
-        if (player.playerInput.actions["Pause"].triggered)
+        if (player.playerInput.actions["Pause"].triggered && !isInterrupted)
         {
             if (isPaused)
             {
@@ -47,60 +91,119 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PauseGame()
+    public void ResetReversal()
     {
+        reverseSectionEngager.ResetReversal();
+    }
+
+    public void Pause()
+    {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
+
         //Show cursor
         Cursor.lockState = CursorLockMode.None;
 
-        pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+    }
+
+    public void Resume()
+    {
+        cinemachineBrain.enabled = !cinemachineBrain.enabled;
+
+        //Hide cursor and lock it
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void PauseGame()
+    {
+        Pause();
+        player.playerInput.DeactivateInput();
+
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 1f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = true;
         
+        var button = pauseMenu.GetComponentInChildren<Button>();
+        button.interactable = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
+        Debug.Log("pause");
+
         // Update playtime and deaths in pause menu
-        _playTime.text = "Playtime: " + playerStats.ReturnTime();
-        _deaths.text = "Deaths: " + playerStats.deathCount;
+        playTime.text = "Playtime: " + playerStats.ReturnTime();
+        deaths.text = "Deaths: " + playerStats.deathCount;
     }
 
     public void ResumeGame()
     {
+        player.playerInput.ActivateInput();
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
-
-        //Hide cursor and lock it
-        Cursor.lockState = CursorLockMode.Locked;
-
-        pauseMenu?.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+        cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
+        
+        Resume();
+        
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        var button = pauseMenu.GetComponentInChildren<Button>();
+        button.interactable = false;
+        EventSystem.current.SetSelectedGameObject(null);
+        Debug.Log("resume");
     }
 
-    public void ReturnToHub()
+    public void ChangeDifficulty()
     {
-        //Hide cursor and lock it
-        Cursor.lockState = CursorLockMode.Locked;
+        switch (difficultySlider.value)
+        {
+            case 0:
+                reverseSectionEngager.firstLavaSpeed = 0.3f;
+                reverseSectionEngager.secondLavaSpeed = 0.03f;
+                break;
+            case 1:
+                reverseSectionEngager.firstLavaSpeed = 0.4f;        
+                reverseSectionEngager.secondLavaSpeed = 0.04f;
+                break;
+            case 2:
+                reverseSectionEngager.firstLavaSpeed = 0.5f;
+                reverseSectionEngager.secondLavaSpeed = 0.05f;
+                break;
+        }
+    }
 
-        pauseMenu?.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+    public void ChangePostExposure()
+    {
+        var colorAdjustments = globalVolume.profile.TryGet(out ColorAdjustments temp) ? temp : ScriptableObject.CreateInstance<ColorAdjustments>();
 
-        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
-
-        var controller = player.controller;
-
-        // The jank is real, controller needs to be disabled to be able to pass through objects to a respawn anchor
-        controller.enabled = false;
-
-        var playerTransform = player.transform;
-        playerTransform.position = hubRespawnAnchor.transform.position;
-        playerTransform.eulerAngles = new Vector3(0, 0, 0);
-
-        controller.enabled = true;
+        colorAdjustments.postExposure.value = postExposureSlider.value;
     }
 
     public void GoToMainMenu()
     {
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
 
+        Resume();
+        //Show cursor
+        Cursor.lockState = CursorLockMode.None;
+        pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
+        pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        pauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        pauseMenu.GetComponentInChildren<Button>().interactable = false;
+
+        StartCoroutine(sceneTransition.LoadScene(0));
+    }
+
+    public void GoToMainMenuEnd()
+    {
+        AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
+        isInterrupted = false;
+        isPaused = false;
+
         Time.timeScale = 1f;
+
         StartCoroutine(sceneTransition.LoadScene(0));
     }
 }

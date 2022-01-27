@@ -3,7 +3,77 @@ guid: 268966fa77015484ba5e0e1756d78e9d
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair_mat
+    second: {fileID: 2100000, guid: ea9389adbb2f8d44e8713901ae80af23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Scarf_mat
+    second: {fileID: 2100000, guid: e224bba0c8e51ea42806e6a73791042e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: anisotropic1
+    second: {fileID: 2100000, guid: 182bafa9a532eff4486281df69bcb993, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bodywarmer
+    second: {fileID: 2100000, guid: 15f465c1bfcea184397c23701bab1c9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes
+    second: {fileID: 2100000, guid: 0a47d6d66ead25942a9b32fca342fbca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: jeans
+    second: {fileID: 2100000, guid: 868fa662045886944961b5e1dc83af13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert12
+    second: {fileID: 2100000, guid: d9bbf437ca2f7c64ca26109b4d1416aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lips
+    second: {fileID: 2100000, guid: 20137dedea10b1a4b8f0c0f97800ea72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shirt
+    second: {fileID: 2100000, guid: 260cc93d34d3a4e4e9dbd8b948b11f35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes
+    second: {fileID: 2100000, guid: 93cafaeb2b686f74c9bbec5201658403, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes_underside
+    second: {fileID: 2100000, guid: 9bac40ce07c8ec448bc18ab75caef976, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: ed161755569db5b45acb2574891dd859, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: teeth
+    second: {fileID: 2100000, guid: 95141e358fedd1441ad66d7e6d0af440, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zipper
+    second: {fileID: 2100000, guid: 62f5d230b2e39c9408c7e5e919d6eaff, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
