@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -124,7 +125,12 @@ public class GameManager : MonoBehaviour
         pauseMenu.GetComponent<CanvasGroup>().alpha = 1f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
         pauseMenu.GetComponent<CanvasGroup>().interactable = true;
-        pauseMenu.GetComponentInChildren<Button>().interactable = true;
+        
+        var button = pauseMenu.GetComponentInChildren<Button>();
+        button.interactable = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
+        Debug.Log("pause");
 
         // Update playtime and deaths in pause menu
         playTime.text = "Playtime: " + playerStats.ReturnTime();
@@ -135,12 +141,16 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.GetInstance().PlaySound(AudioManager.SoundType.uiOnClick);
         cinemachineFreeLook.m_YAxis.m_InvertInput = !cameraYAxisInversionToggle.isOn;
-
+        
         Resume();
+        
         pauseMenu.GetComponent<CanvasGroup>().alpha = 0f;
         pauseMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
         pauseMenu.GetComponent<CanvasGroup>().interactable = false;
-        pauseMenu.GetComponentInChildren<Button>().interactable = false;
+        var button = pauseMenu.GetComponentInChildren<Button>();
+        button.interactable = false;
+        EventSystem.current.SetSelectedGameObject(null);
+        Debug.Log("resume");
     }
 
     public void ChangeDifficulty()

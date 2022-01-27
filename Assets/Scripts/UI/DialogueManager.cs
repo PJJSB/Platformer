@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class DialogueManager : MonoBehaviour
     public GameManager gameManager;
     public GameObject endTrigger;
     public GameObject sparksVFX;
+
+    public Button mainMenuButton;
 
     private Queue<string> sentences;
     private GameObject triggerBox;
@@ -55,6 +58,10 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 1f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
         dialoguePanel.GetComponent<CanvasGroup>().interactable = true;
+        var button = dialoguePanel.GetComponentInChildren<Button>();
+        button.interactable = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
 
         dialogueAnim.SetBool("dialogueReset", false);
         dialogueAnim.SetBool("dialogueActive", true);
@@ -120,6 +127,10 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         dialogueAnim.SetBool("dialogueNext", false);
         continueButton.interactable = true;
+        var button = dialoguePanel.GetComponentInChildren<Button>();
+        button.interactable = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
     }
 
     // Gets called when there are no more sentences left
@@ -141,6 +152,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.GetComponent<CanvasGroup>().alpha = 0f;
         dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         dialoguePanel.GetComponent<CanvasGroup>().interactable = false;
+        var button = dialoguePanel.GetComponentInChildren<Button>();
+        button.interactable = false;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void EndScreenDialogue()
@@ -153,5 +167,8 @@ public class DialogueManager : MonoBehaviour
         finalTime.text = "Playtime: " + gameManager.playerStats.ReturnTime();
 
         dialogueAnim.SetTrigger("dialogueEnd");
+        mainMenuButton.interactable = true;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(mainMenuButton.gameObject);
     }
 }
